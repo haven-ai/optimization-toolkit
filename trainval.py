@@ -57,7 +57,6 @@ if __name__ == '__main__':
 
     args, others = parser.parse_known_args()
 
-    
     if args.run_jobs == 1:
         import slurm_config
         job_config = slurm_config.JOB_CONFIG
@@ -67,5 +66,7 @@ if __name__ == '__main__':
     else:
         job_config = None
 
-    hw.run_wizard(func=trainval, exp_list=exp_list, savedir_base=args.savedir_base, reset=args.reset,
+    hw.run_wizard(func=trainval, exp_list=exp_list, 
+                  savedir_base=args.savedir_base, 
+                  reset=args.reset,
                   job_config=job_config)
