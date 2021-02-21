@@ -1,0 +1,656 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "sps",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-r", "1", "-j","0",
+                "-e", "sps_syn", "sps_mnist",
+                "-d","/mnt/public/datasets",
+                "-sb", "/mnt/public/results/debug/sps",
+        ]
+        },
+
+        {
+            "name": "sps_toolkit",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-r", "1",
+                "-e", "sps_syn", "sps_mnist",
+                "-j", "1",
+                "-d","/mnt/public/datasets",
+                "-sb", "/mnt/public/results/toolkit/sps",
+        ]
+        },
+
+        {
+            "name": "adaptive",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-r", "1",
+                "-e", 
+                // "adaptive_V_imagenet200",
+                // "adaptive_II_syn",
+                // "adaptive_IV_cifar10_nobn",
+                // "adaptive_IV_cifar100_nobn",
+                // "adaptive_V_imagenet200",
+                // "adaptive_V_imagenet10",
+                // "adaptive_I_B_C",
+                // "adaptive_II_syn",
+                "adaptive_III_mnist",
+                
+                // "adaptive_III_mnist",
+                // "adaptive_IV_cifar10_nobn",
+                // "adaptive_III_mf",
+                "-c","0",
+                "-d","/mnt/public/datasets",
+                "-sb", "/mnt/public/results/debug/adaptive",
+        ]
+        },
+
+        {
+            "name": "results",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-v", "1",
+                "-e", 
+                // "pmnist_smnist", 
+                // "nlp_1",
+                // "syn_fix",
+                // "nlp_2",
+                // "syn",
+                // "nus_syn",
+                // "adaptive_V_imagenet200",
+                // "adaptive_II_syn",
+                // "adaptive_IV_cifar10_nobn",
+                // "adaptive_IV_cifar100_nobn",
+                // "adaptive_V_imagenet200",
+                // "adaptive_V_imagenet10",
+                // "adaptive_I_B_C",
+                // "adaptive_II_syn",
+                "adaptive_III_mnist",
+                // "kernels",
+                // "adaptive_III_mnist",
+                // "adaptive_IV_cifar10_nobn",
+                // "adaptive_III_mf",
+                // "nusr_syn",
+                // "kernel",
+                // "mnist",
+                // "B_C",
+                // "adagrad_sls_mnist",
+                //  "adagrad_sls_kernel",
+                    // "adagrad_sls_mf",
+                    //  "adagrad_sls_deep", 
+                    "-d", "/mnt/datasets/public/issam/data",
+                "-sb", "/mnt/datasets/public/issam/prototypes/adaptive_final/borgy/",
+                // "-r", "1",
+                // "-j", "1"
+        ]
+        },
+
+        {
+            "name": "trainval",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", 
+                // "pmnist_smnist", 
+                // "nlp_1",
+                // "syn_fix",
+                // "nlp_2",
+                // "syn",
+                // "nus_syn",
+                // "adaptive_V_imagenet200",
+                // "adaptive_II_syn",
+                // "adaptive_IV_cifar10_nobn",
+                // "adaptive_IV_cifar100_nobn",
+                // "adaptive_V_imagenet200",
+                // "adaptive_V_imagenet10",
+                // "adaptive_I_B_C",
+                // "adaptive_II_syn",
+                "adaptive_II_kernels",
+                // "kernels",
+                // "adaptive_III_mnist",
+                // "adaptive_IV_cifar10_nobn",
+                // "adaptive_III_mf",
+                // "nusr_syn",
+                // "kernel",
+                // "mnist",
+                // "B_C",
+                // "adagrad_sls_mnist",
+                //  "adagrad_sls_kernel",
+                    // "adagrad_sls_mf",
+                    //  "adagrad_sls_deep", 
+                    "-d", "/mnt/datasets/public/issam/data",
+                "-sb", "/mnt/datasets/public/issam/prototypes/adaptive/debug/",
+                "-r", "1",
+                // "-j", "1"
+        ]
+        },
+        {
+            "name": "sps_quadratic",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/quadratic.py",
+            "console": "integratedTerminal",
+            "args":[
+        ]
+        },
+        {
+            "name": "sps_trainval",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", 
+                // "sps_quadratic", 
+                // "nlp_1",
+                // "syn_fix",
+                // "nlp_2",
+                // "syn",
+                // "nus_syn",
+                "sps_syn",
+                // "sps_mnist",
+                // "nusr_syn",
+                // "kernel",
+                // "mnist",
+                // "B_C",
+                // "adagrad_sls_mnist",
+                //  "adagrad_sls_kernel",
+                    // "adagrad_sls_mf",
+                    //  "adagrad_sls_deep", 
+                    "-d", "/mnt/datasets/public/issam/data",
+                "-sb", "/mnt/datasets/public/issam/prototypes/adaptive/debug/",
+                "-r", "1",
+                // "-j", "1"
+        ]
+        },
+
+        {
+            "name": "borgy",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", 
+                
+                "adaptive_II_syn",
+                // "adaptive_II_kernels",
+                // "adaptive_III_mf",
+                // "adaptive_III_mnist",
+                // "adaptive_IV_cifar10",
+                // "adaptive_IV_cifar100",
+                // "adaptive_IV_cifar10_nobn",
+                // "adaptive_IV_cifar100_nobn",
+                // "adaptive_V_imagenet10",
+                // "adaptive_V_imagenet200",
+
+                "-d", "/mnt/datasets/public/issam/data",
+                "-sb", "/mnt/datasets/public/issam/prototypes/adaptive_final/borgy/",
+                "-r", "1",
+                "-j", "1"
+        ]
+        },
+
+        {
+            "name": "sps_borgy",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", 
+
+                "sps_cifar10",
+                "sps_mnist",
+                "sps_syn",
+
+                // "imagenet",
+                "-d", "/mnt/datasets/public/issam/data",
+                "-sb", "/mnt/datasets/public/issam/prototypes/sps_momentum/borgy/",
+                "-r", "1",
+                "-j", "1"
+        ]
+        },
+
+        {
+            "name": "adagrad",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", 
+                "adam_splr",
+                // "adagrad_sls_mnist",
+                //  "adagrad_sls_kernel",
+                    // "adagrad_sls_mf",
+                    //  "adagrad_sls_deep", 
+                "-sb", "/mnt/datasets/public/issam/prototypes/adagrad/debug/",
+                "-r", "1",
+                // "-j", "1"
+        ]
+        },
+
+        {
+            "name": "adagrad_borgy",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", 
+                "adagrad_splr_deep",
+                // "adagrad_splr", 
+                // "adagrad_splr_mnist",
+                //  "adagrad_splr_kernel",
+                //     "adagrad_splr_mf",
+                //      "adagrad_splr_deep", 
+                "-sb", "/mnt/datasets/public/issam/prototypes/adagrad/borgy/",
+                "-r", "1",
+                "-j", "1"
+        ]
+        },
+
+        {
+            "name": "word_language",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e",  "word_language",
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/debug/",
+                "-r", "1"
+        ]
+        },
+
+        {
+            "name": "word_language_borgy",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", "word_language",
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/borgy/",
+                "-r", "1",
+                "-j", "1"
+        ]
+        },
+
+        {
+            "name": "nus",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e",  
+                "eai_mnist", 
+                "eai_cifar",   
+                "eai_syn", 
+                "eai_mf", 
+                "eai_kernels",
+                "-sb", "/mnt/datasets/public/issam/prototypes/nus/debug/",
+                    // "-j", "1"
+                "-r", "1"
+        ],
+        "env": {
+            "CUDA_VISIBLE_DEVICES":"1"
+        }
+        },
+
+        {
+            "name": "nus_borgy",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", 
+                "eai_syn", 
+                // "eai_mf", 
+                // "eai_kernels",
+
+                // "eai_mnist", 
+                // "eai_cifar",
+               
+                // "eai_mnist",
+                "-sb", "/mnt/datasets/public/issam/prototypes/nus/borgy/",
+                    "-j", "1"
+                // "-r", "1"
+        ],
+        "env": {
+            "CUDA_VISIBLE_DEVICES":"1"
+        }
+        },
+        
+
+        
+
+        {
+            "name": "nobn_borgy",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", "eai_cifar100_nobn",
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/borgy/",
+                "-r", "1",
+                "-j", "1"
+        ]
+        },
+        {
+            "name": "pmnist_smnist_borgy",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", "pmnist_smnist",
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/borgy/",
+                "-r", "1",
+                "-j", "1"
+        ]
+        },
+
+        {
+            "name": "borgy_nus_nobn",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", "eai_cifar", "cifar10", "cifar100", "eai_mnist", 
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/debug/",
+                "-r", "1",
+                "-j", "1"
+        ]
+        },
+        
+        {
+            "name": "nlp",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", "pentree", "pmnist",
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/debug/",
+                "-r", "1"
+        ]
+        },
+
+        {
+            "name": "trainval_lstm",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval_lstm.py",
+            "console": "integratedTerminal",
+            "args":[
+                "--cuda",
+                 "--emsize", "650", 
+                 "--nhid", "650", 
+                 "--dropout", "0.5", 
+                 "--epochs", "40"  
+        ]
+        },
+
+        
+
+        {
+            "name": "nus",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", "eai_syn",
+                "-sb", "/mnt/datasets/public/issam/prototypes/nus/debug/",
+                "-r", "1"
+        ],
+        "env": {
+            "CUDA_VISIBLE_DEVICES":"1"
+        }
+        },
+
+        
+
+        {
+            "name": "nus2",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", "eai_syn",
+                "-sb", "/mnt/datasets/public/issam/prototypes/nus/debug/",
+                "-r", "1"
+        ],
+        "env": {
+            "CUDA_VISIBLE_DEVICES":"1"
+        }
+        },
+        // {
+        //     "name": "nus_borgy",
+        //     "type": "python",
+        //     "request": "launch",
+        //     "program": "${workspaceFolder}/trainval.py",
+        //     "console": "integratedTerminal",
+        //     "args":["-e",  "eai_mnist", 
+        //         "-sb", "/mnt/datasets/public/issam/prototypes/nus/borgy/",
+        //         "-r", "1",
+        //         "-j", "1"
+        // ]
+        // },
+
+        {
+            "name": "adagrad",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", "adagrad_sls_mf",
+                "-sb", "/mnt/datasets/public/issam/prototypes/adagrad/non_borgy/",
+                "-r", "1",
+                // "-j", "1"
+        ]
+        },
+
+        
+
+        {
+            "name": "view",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", "camera_ready",
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/non_borgy/",
+                 "-v", "1"
+        ]
+        },
+
+        {
+            "name": "jupyter",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args":["-e", "imagenet",
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/borgy/",
+                 "-v", "1"
+        ]
+        },
+
+        {
+            "name": "borgy",
+            "type": "python",
+            "request": "launch",
+            "program": "/home/issam/.conda/envs/al/bin/hborgy.py",
+            "console": "integratedTerminal",
+            "args":["-e", "splr_reset",
+                "-f", "trainval.py",
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/borgy/",
+                "-u", "issam", 
+                "-bid","100",
+                "-w", "${workspaceFolder}",
+        ]
+        },
+        {
+            "name": "debug",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            // "program": "/mnt/datasets/public/issam/prototypes/nus/borgy/ef736b868ea3221d3a840937a59ee87b/code/trainval.py",
+            "console": "integratedTerminal",
+            "args":[
+                // "-e", "exp_list_sls", 
+                "-r", "1",
+                "-sb", "/mnt/datasets/public/issam/prototypes/adaptive_final/debug/",
+                 "-ei", "6dbb64633665383382ed107277a2d8ce", 
+                 "-d", "/mnt/datasets/public/issam/data",
+                //  "-d", "/mnt/datasets/public/issam/prototypes/sls",
+        ],"env": {
+            "CUDA_VISIBLE_DEVICES":"0"
+        }
+        },
+
+        {
+            "name": "view_plots",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/view_plots.py",
+            "console": "integratedTerminal",
+            "args": ["-e","radam_cifar100",
+                "-sb","/mnt/datasets/public/issam/prototypes/sls/borgy/",
+            ]
+        },
+        
+        {
+            "name": "exp_list_pmb",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args": [
+              
+                "-e", 
+                "pmb",
+                "-r", "1",
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/non_borgy",
+                "-d", "/mnt/datasets/public/issam/prototypes/sls"
+            ]
+        },
+        {
+            "name": "pmnist_smnist",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args": [
+              
+                "-e", 
+                "pmnist_smnist",
+                "-r", "1",
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/non_borgy",
+                "-d", "/mnt/datasets/public/issam/prototypes/sls"
+            ]
+        },
+
+        {
+            "name": "pmnist_smnist_borgy",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/haven_borgy/example/run_borgy.py",
+            "console": "integratedTerminal",
+            "args":["-e", "pmnist_smnist", 
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/borgy/",
+                 "-u", "issam", 
+                 "-f", "trainval.py",
+                 "-w", "${workspaceFolder}",
+            "-extra", "-d /mnt/datasets/public/issam/prototypes/sls"
+        ],
+        },
+
+        {
+            "name": "svrg",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval_svrg.py",
+            "console": "integratedTerminal",
+            "args": [
+              
+                "-e", 
+                "test_svrg",
+                "-r", "1",
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/non_borgy",
+                "-d", "/mnt/datasets/public/issam/prototypes/sls"
+            ]
+        },
+
+        {
+            "name": "exp_list_sls",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval.py",
+            "console": "integratedTerminal",
+            "args": [
+              
+                "-e", 
+                "exp_list_sls",
+                "-r", "1",
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/non_borgy",
+                "-d", "/mnt/datasets/public/issam/prototypes/sls"
+            ]
+        },
+        {
+            "name": "exp_list_sls_borgy",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/haven_borgy/example/run_borgy.py",
+            "console": "integratedTerminal",
+            "args":["-e", "exp_list_sls", 
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/borgy/",
+                 "-u", "issam", 
+                 "-f", "trainval.py",
+                 "-w", "${workspaceFolder}",
+            "-extra", "-d /mnt/datasets/public/issam/prototypes/sls"
+        ],
+        },
+
+        {
+            "name": "exp_list_sls_nus",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/trainval_nus.py",
+            "console": "integratedTerminal",
+            "args": [
+              
+                "-e", 
+                "exp_list_sls_nus",
+                "-r", "1",
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/non_borgy",
+                "-d", "/mnt/datasets/public/issam/prototypes/sls"
+            ]
+        },
+        {
+            "name": "exp_list_sls_nus_borgy",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/haven_borgy/run_borgy.py",
+            "console": "integratedTerminal",
+            "args":["-e", "exp_list_sls", 
+                "-sb", "/mnt/datasets/public/issam/prototypes/sls/borgy/",
+                 "-u", "issam", 
+                 "-f", "trainval.py",
+                 "-w", "${workspaceFolder}",
+            "-r", "1",
+            "-extras", "-d /mnt/datasets/public/issam/prototypes/sls"
+        ],
+        },
+      
+    ]
+}
