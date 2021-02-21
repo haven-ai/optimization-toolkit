@@ -169,6 +169,18 @@ pip install --upgrade git+https://github.com/haven-ai/haven
 ## Usage
 
 **Setup config file**
+The experiment configurations can be defined in the dictionary, and an example is shown below.
+```
+{"dataset": ["mushrooms", "ijcnn", "rcv1"],
+                "model": ["logistic"],
+                "loss_func": ['softmax_loss'],
+                "acc_func": ["softmax_accuracy"],
+                "opt": opt_list,
+                "batch_size": [100],
+                "max_epoch": [100],
+                "runs": RUNS}
+```
+The dataset, models, optimizers, and hyperparameters can all be defined in the experiment configurations.
 
 **To run the experiments :**
 
