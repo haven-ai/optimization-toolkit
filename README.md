@@ -169,6 +169,7 @@ pip install --upgrade git+https://github.com/haven-ai/haven
 ## Usage
 
 **Setup config file**
+
 The experiment configurations can be defined in the dictionary, and an example is shown below.
 ```
 {"dataset": ["mushrooms", "ijcnn", "rcv1"],
