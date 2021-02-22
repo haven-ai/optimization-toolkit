@@ -40,6 +40,9 @@ python test.py [-h] [--model_path [MODEL_PATH]] [--dataset [DATASET]]
 
 ```
 
+**To run the experiments in slurm:**
+
+
 **To view the results :**
 
 Example
@@ -116,6 +119,16 @@ python trainval.py -e new_benchmark -v 1 -d ../results -sb ../results
 The section is being continually updated with the latest optimizers on standard benchmarks.
 
 Show the training loss and validation accuracy with 5 runs as in https://github.com/IssamLaradji/ada_sls
+
+### synthetic
+
+### ijcnn
+
+### rcv1
+
+### mushrooms
+
+### w8a
 
 ### MNIST - LeNet
 
