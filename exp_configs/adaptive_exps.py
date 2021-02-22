@@ -8,7 +8,7 @@ RUNS = [0, 1, 2, 3, 4]
 def get_benchmark(benchmark, opt_list):
     if benchmark == 'syn':
         return {"dataset": ["synthetic"],
-                "model": ["logistic"],
+                "model_base": ["logistic"],
                 "loss_func": ["softmax_loss"],
                 "opt": opt_list,
                 "acc_func": ["softmax_accuracy"],
@@ -27,7 +27,7 @@ def get_benchmark(benchmark, opt_list):
 
     elif benchmark == 'kernels':
         return {"dataset": ["mushrooms", "ijcnn", "rcv1"],
-                "model": ["logistic"],
+                "model_base": ["logistic"],
                 "loss_func": ['softmax_loss'],
                 "acc_func": ["softmax_accuracy"],
                 "opt": opt_list,
@@ -37,7 +37,7 @@ def get_benchmark(benchmark, opt_list):
 
     elif benchmark == 'mf':
         return {"dataset": ["matrix_fac"],
-                "model": ["matrix_fac_1", "matrix_fac_4", "matrix_fac_10", "linear_fac"],
+                "model_base": ["matrix_fac_1", "matrix_fac_4", "matrix_fac_10", "linear_fac"],
                 "loss_func": ["squared_loss"],
                 "opt": opt_list,
                 "acc_func": ["mse"],
@@ -47,7 +47,7 @@ def get_benchmark(benchmark, opt_list):
 
     elif benchmark == 'mnist':
         return {"dataset": ["mnist"],
-                "model": ["mlp"],
+                "model_base": ["mlp"],
                 "loss_func": ["softmax_loss"],
                 "opt": opt_list,
                 "acc_func": ["softmax_accuracy"],
@@ -57,7 +57,7 @@ def get_benchmark(benchmark, opt_list):
 
     elif benchmark == 'cifar10':
         return {"dataset": ["cifar10"],
-                "model": [
+                "model_base": [
             "densenet121",
 
             "resnet34"
@@ -71,7 +71,7 @@ def get_benchmark(benchmark, opt_list):
 
     elif benchmark == 'cifar100':
         return {"dataset": ["cifar100"],
-                "model": [
+                "model_base": [
             "densenet121_100",
             "resnet34_100"
         ],
@@ -84,7 +84,7 @@ def get_benchmark(benchmark, opt_list):
 
     elif benchmark == 'cifar10_nobn':
         return {"dataset": ["cifar10"],
-                "model": ["resnet34_nobn", "densenet121_nobn"],
+                "model_base": ["resnet34_nobn", "densenet121_nobn"],
                 "loss_func": ["softmax_loss"],
                 "opt": opt_list,
                 "acc_func": ["softmax_accuracy"],
@@ -94,7 +94,7 @@ def get_benchmark(benchmark, opt_list):
 
     elif benchmark == 'cifar100_nobn':
         return {"dataset": ["cifar100"],
-                "model": ["resnet34_100_nobn", "densenet121_100_nobn"],
+                "model_base": ["resnet34_100_nobn", "densenet121_100_nobn"],
                 "loss_func": ["softmax_loss"],
                 "opt": opt_list,
                 "acc_func": ["softmax_accuracy"],
@@ -104,7 +104,7 @@ def get_benchmark(benchmark, opt_list):
 
     elif benchmark == 'imagenet200':
         return {"dataset": ["tiny_imagenet"],
-                "model": ["resnet18"],
+                "model_base": ["resnet18"],
                 "loss_func": ["softmax_loss"],
                 "opt": opt_list,
                 "acc_func": ["softmax_accuracy"],
@@ -113,7 +113,7 @@ def get_benchmark(benchmark, opt_list):
                 "runs": RUNS}
     elif benchmark == 'imagenet10':
         return {"dataset": ["imagenette2-160", "imagewoof2-160"],
-                "model": ["resnet18"],
+                "model_base": ["resnet18"],
                 "loss_func": ["softmax_loss"],
                 "opt": opt_list,
                 "acc_func": ["softmax_accuracy"],
@@ -430,7 +430,7 @@ opt_list += ssn_list
 
 
 EXP_GROUPS['adaptive_II_syn'] += hu.cartesian_exp_group({"dataset":["synthetic"],
-                                            "model":["logistic"],
+                                            "model_base":["logistic"],
                                             "loss_func": ["softmax_loss"],
                                             "opt": opt_list,
                                             "acc_func":["softmax_accuracy"],
@@ -444,7 +444,7 @@ EXP_GROUPS['adaptive_II_syn'] += hu.cartesian_exp_group({"dataset":["synthetic"]
 
 
 EXP_GROUPS['adaptive_II_kernels'] += hu.cartesian_exp_group({"dataset":["mushrooms", 'ijcnn', 'rcv1'],
-                                            "model":["logistic"],
+                                            "model_base":["logistic"],
                                             "loss_func": ["softmax_loss"],
                                             "opt": opt_list,
                                             "acc_func":["softmax_accuracy"],

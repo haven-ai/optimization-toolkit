@@ -59,7 +59,6 @@ def get_benchmark(benchmark, opt_list):
         return {"dataset": ["cifar10"],
                 "model_base": [
             "densenet121",
-
             "resnet34"
         ],
             "loss_func": ["softmax_loss"],
