@@ -1,101 +1,78 @@
-# Optimization Benchmark
+# Awesome Optimization Benchmark
 
-## Adaptive Gradient Methods Converge Faster with Over-Parameterization (and you can do a line-search) [[Paper]](https://arxiv.org/abs/2006.06835)
+The goal of this repository is 
+  - to illustrate how different optimizers perform on different datasets using a standard benchmark; and 
+  - allow users to add their own datasets and optimizers to have a reliable comparison and inspire new state-of-the-art optimizers for different machine learning problem setups.
 
-Our `AMSGrad Armijo SLS` and `AdaGrad Armijo SLS`  consistently achieve best generalization results.
-![](results/results_sls.png)
-## Networks Implemented
-* linear
+## Contents
 
-* logistic
+- Quick Start
+- Adding new benchmarks
+- Optimizers Implemented
+- Leaderboard
 
-* mlp
 
-* wrn
+## Quick Start (similar to Usage in https://github.com/meetshah1995/pytorch-semseg)
 
-* mlp_dropout
 
-* resnet34
+**Install requirements**
+`pip install -r requirements.txt` 
 
-* resnet34_100
 
-* resnet34_200
+**To run the experiments :**
 
-* resnet34_nobn
+```
+python trainval.py -e <expconfig> -r "0" -d <datadir> -sb <savedir_base> -nw "0" -j "1"
+```
 
-* resnet34_100_nobn
+where `<expconfig>` is the name definition of the experiment experiment configuration, `<datadir>` is where the data is saved, and `<savedir_base>` is where the results will be saved.
 
-* resnet18
 
-* resnet50
+```
+python test.py [-h] [--model_path [MODEL_PATH]] [--dataset [DATASET]]
+               [--dcrf [DCRF]] [--img_path [IMG_PATH]] [--out_path [OUT_PATH]]
+ 
+  --model_path          Path to the saved model
+  --dataset             Dataset to use ['pascal, camvid, ade20k etc']
+  --dcrf                Enable DenseCRF based post-processing
+  --img_path            Path of the input image
+  --out_path            Path of the output segmap
 
-* resnet101
+```
 
-* resnet152
+**To view the results :**
 
-* mxresnet50
+Example
+```
+python trainval.py -e <expconfig> -v 1 -d <datadir> -sb <savedir_base>
+```
 
-* wide_resnet101
+where `<expconfig>` is the name definition of the experiment experiment configuration, `<datadir>` is where the data is saved, and `<savedir_base>` is where the results will be saved.
 
-* densenet121
+## Adding a new benchmark
 
-* densenet121_100
+**Add an optimizer**
 
-* densenet121_nobn
+**Add a dataset**
 
-* densenet121_100_nobn
+**Add a network**
 
-* matrix_fac_1
+**Run the new benchmark**
 
-* matrix_fac_4
+Define the experiment configuration you would like to run. The dataset, models, optimizers, and hyperparameters can all be defined in the experiment configurations.
+```
+EXP_GROUPS['new_benchmark'] = {"dataset": [<dataset_name>],
+                     "model_base": [<network_name>],
+                     "opt": [<optimizer_dict>],}
+```
 
-* matrix_fac_10
+Train using the following command
+```
+python trainval.py -e new_benchmark -v 1 -d ../results -sb ../results
+```
 
-* linear_fac
+### Optimizers Implemented (similar to https://github.com/gjy3035/Awesome-Crowd-Counting - add paper and a one line title of the optimizer which is the paper's name and divide them by year)
 
-## Dataloaders Implemented
-* tiny_imagenet
-
-* imagenette2-160
-
-* imagewoof2-160
-
-* mnist
-
-* cifar10
-
-* cifar100
-
-* synthetic
-
-* matrix_fac
-
-* mushrooms
-
-* w8a
-
-* rcv1
-
-* ijcnn
-
-* a1a
-
-* a2a
-
-* mushrooms_convex
-
-* w8a_convex
-
-* rcv1_convex
-
-* ijcnn_convex
-
-* a1a_convex
-
-* a2a_convex
-
-## Optimizers Implemented
-* adaptive_second
 
 * adaptive_first
 
@@ -133,71 +110,19 @@ Our `AMSGrad Armijo SLS` and `AdaGrad Armijo SLS`  consistently achieve best gen
 
 * plain_radam
 
-## Install requirements
-`pip install -r requirements.txt` 
 
 
-Install the Haven library for managing the experiments with 
+## Leaderboard
+The section is being continually updated with the latest optimizers on standard benchmarks.
 
-```
-pip install --upgrade git+https://github.com/haven-ai/haven
-```
+Show the training loss and validation accuracy with 5 runs as in https://github.com/IssamLaradji/ada_sls
 
-* torch>=1.4.0
+### MNIST - LeNet
 
-* torchvision>=0.5.0
+### CIFAR10 - ResNet34
 
-* pylidc>=0.2.1
+### CIFAR100 - ResNet34
 
-* matplotlib>=3.1.2
-
-* scikit-image>=0.14.2
-
-* backpack >= 0.0
-
-* ipdb >= 0.0
-
-* tqdm >= 0.0
-
-* pandas >= 0.0
-
-* scikit-learn >= 0.0
-
-* backpack-for-pytorch >= 0.0
-
-
-## Usage
-
-**Setup config file**
-
-The experiment configurations can be defined in the dictionary, and an example is shown below.
-```
-{"dataset": ["mushrooms", "ijcnn", "rcv1"],
-                "model": ["logistic"],
-                "loss_func": ['softmax_loss'],
-                "acc_func": ["softmax_accuracy"],
-                "opt": opt_list,
-                "batch_size": [100],
-                "max_epoch": [100],
-                "runs": RUNS}
-```
-The dataset, models, optimizers, and hyperparameters can all be defined in the experiment configurations.
-
-**To run the experiments :**
-
-```
-python trainval.py -e <expconfig> -r "0" -d <datadir> -sb <savedir_base> -nw "0" -j "1"
-```
-
-where `<expconfig>` is the name definition of the experiment experiment configuration, `<datadir>` is where the data is saved, and `<savedir_base>` is where the results will be saved.
-
-**To view the results :**
-
-```
-python trainval.py -e <expconfig> -v 1 -d <datadir> -sb <savedir_base>
-```
-
-where `<expconfig>` is the name definition of the experiment experiment configuration, `<datadir>` is where the data is saved, and `<savedir_base>` is where the results will be saved.
 
 
 
