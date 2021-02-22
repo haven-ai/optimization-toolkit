@@ -21,7 +21,7 @@ class Classifier(torch.nn.Module):
         self.model_base = base_classifiers.get_classifier(exp_dict['model_base'], train_set=train_loader.dataset)
 
         # Load Optimizer
-        self.cuda()
+        self.to(device=self.device)
         self.opt = optimizers.get_optimizer(opt=exp_dict["opt"],
                                        params=self.parameters(),
                                        train_loader=train_loader,                                
@@ -76,12 +76,12 @@ class Classifier(torch.nn.Module):
 
         name = self.exp_dict['opt']['name']
         if (name in ['adaptive_second']):
-            closure = lambda for_backtracking=False : loss_function(model, images, labels, backwards=False, 
+            closure = lambda for_backtracking=False : loss_function(self.model_base, images, labels, backwards=False, 
                                                                     backpack=(use_backpack and not for_backtracking))
             loss = self.opt.step(closure)
                     
         elif (name in ["sgd_armijo", "ssn", 'adaptive_first', 'l4', 'ali_g']):
-            closure = lambda : loss_function(model, images, labels, backwards=False, backpack=use_backpack)
+            closure = lambda : loss_function(self.model_base, images, labels, backwards=False, backpack=use_backpack)
             loss = self.opt.step(closure)
                     
         elif (name in ['sps']):
@@ -89,7 +89,7 @@ class Classifier(torch.nn.Module):
             loss = self.opt.step(closure, batch)
 
         elif (name in ["adam", "adagrad", 'radam', 'plain_radam', 'adabound']):
-            loss = loss_function(model, images, labels, backpack=use_backpack)
+            loss = loss_function(self.model_base, images, labels, backpack=use_backpack)
             loss.backward()
             self.opt.step()
 
