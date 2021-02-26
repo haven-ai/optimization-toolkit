@@ -38,7 +38,7 @@ import pprint
 def trainval(exp_dict, savedir, args):
     # Set seed and device
     # ===================
-    seed = 42 + exp_dict['runs']
+    seed = 42 + exp_dict.get('runs', 0)
     np.random.seed(seed)
     torch.manual_seed(seed)
     if args.cuda:

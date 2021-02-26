@@ -8,10 +8,10 @@ from haven import haven_img as hi
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from .networks import infnet, fcn8_vgg16, unet_resnet, resnet_seam
+from .base_semsegs import fcn8_vgg16
 from src import utils as ut
 from src import models
-from . import losses
+from .base_semsegs import losses
 import sys
 
 try:
@@ -22,8 +22,7 @@ except:
     print('kornia not installed')
     
 from scipy.ndimage.filters import gaussian_filter
-from optimizers import adasls, sls, sps
-from . import metrics, networks
+from .. import optimizers
 
 class SemSeg(torch.nn.Module):
     def __init__(self, exp_dict):
