@@ -19,15 +19,23 @@ The goal of this repository is
 `pip install -r requirements.txt` 
 
 
-**To run the experiments :**
+**To run the experiments locally:**
 
 ```
-python trainval.py -e <expconfig> -r "0" -d <datadir> -sb <savedir_base> -nw "0" -j "1"
+python trainval.py -e <expconfig> -r "0" -d <datadir> -sb <savedir_base> -nw "0" -j "0"
 ```
 
 where `<expconfig>` is the name definition of the experiment experiment configuration, `<datadir>` is where the data is saved, and `<savedir_base>` is where the results will be saved.
 
 
+**To run the experiments in slurm:**
+```
+python trainval.py -e <expconfig> -r "0" -d <datadir> -sb <savedir_base> -nw "0" -j "slurm"
+```
+where `<expconfig>` is the name definition of the experiment experiment configuration, `<datadir>` is where the data is saved, and `<savedir_base>` is where the results will be saved.
+
+
+**To test the experiments :**
 ```
 python test.py [-h] [--model_path [MODEL_PATH]] [--dataset [DATASET]]
                [--dcrf [DCRF]] [--img_path [IMG_PATH]] [--out_path [OUT_PATH]]
@@ -39,10 +47,6 @@ python test.py [-h] [--model_path [MODEL_PATH]] [--dataset [DATASET]]
   --out_path            Path of the output segmap
 
 ```
-
-**To run the experiments in slurm:**
-
-
 **To view the results :**
 
 Example
