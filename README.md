@@ -81,41 +81,39 @@ python trainval.py -e new_benchmark -v 1 -d ../results -sb ../results
 ### Optimizers Implemented (similar to https://github.com/gjy3035/Awesome-Crowd-Counting - add paper and a one line title of the optimizer which is the paper's name and divide them by year)
 
 
-* adaptive_first
+* adaptive_first [paper]()
 
-* sgd_armijo
+* SGD with Armijo line search [paper](https://msp.org/pjm/1966/16-1/p01.xhtml)
 
-* sgd_goldstein
+* SGD with Goldstein [paper](https://idp.springer.com/authorize/casa?redirect_uri=https://link.springer.com/article/10.1007/BF01386306&casa_token=fJPrXJ0xVwIAAAAA:rFFa9IMPl50d2j7xqq3MVrA-L92-O1gdSnlEElXZ7PxnWQYaZQ0LsAWjqjs4TmJb0nHhiNPf1KgVxRhTUw)
 
-* sgd_nesterov
+* sgd_nesterov [paper](https://ci.nii.ac.jp/naid/10029946121/)
 
-* sgd_polyak
+* sgd_polyak [paper](https://d1wqtxts1xzle7.cloudfront.net/51218896/Constrained_Minimization_Methods20170106-3612-16x3v7.pdf?1483706492=&response-content-disposition=inline%3B+filename%3DConstrained_minimization_methods.pdf&Expires=1614407156&Signature=CScszoHzcd4MwWlD1K3Nr1wQ8ukdf~7Y4Z0o9ONncWnUa1UdIhAFNkca7YulYozBOBpPqg1As4A5ChI4r6NGD8~UDb-l3dg5b4s72svQlN1mTgH1kqRanM2~DbGoOJ9Tg4n9drBdZtswe9~mYAyO2LfSlUzAKIWP9qsP8hHxCm9eBVEJOtfU~2erYoVLSzF8-7iN9jO4lnOIv3rJg4zwz470oXK02cOHpwkslr5yQBah4LHV6SpR22JYOQ4Lve6Gl7rdusxX0Txpqbc9UNXOQWoXK~SM-G~iINT1BlQDZepVv4ZMH4~969LV8ORiEAXpyXYZuEPHrWJWULsUd1oEFg__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA)
 
-* seg
+* adam [paper](https://arxiv.org/pdf/1412.6980.pdf)
 
-* ssn
+* adagrad [paper](https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf)
 
-* adam
+* ssn [paper](https://arxiv.org/pdf/1910.04920.pdf)
 
-* adagrad
+* seg [paper]()
 
-* sgd
+* sgd [paper](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-3/Stochastic-Estimation-of-the-Maximum-of-a-Regression-Function/10.1214/aoms/1177729392.full)
 
-* sgd-m
+* sgd-m [paper]()
 
-* rmsprop
+* rmsprop [paper](https://arxiv.org/pdf/1308.0850.pdf)
 
-* adabound
+* adabound [paper](https://openreview.net/forum?id=Bkg3g2R9FX)
 
-* amsbound
+* amsbound [paper](https://openreview.net/forum?id=Bkg3g2R9FX)
 
-* sps
+* sps [paper](https://arxiv.org/pdf/2002.10542.pdf)
 
-* lookahead
+* lookahead [paper](https://arxiv.org/abs/1907.08610)
 
-* radam
-
-* plain_radam
+* radam [paper](https://arxiv.org/abs/1908.03265)
 
 
 
