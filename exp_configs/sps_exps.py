@@ -141,5 +141,5 @@ sps_list_mom_gamma = [
 #     # sps_list += [{'name': "sps", 'c': c,  'adapt_flag': 'smooth_iter'}]
 #     sps_list += [{'name': "sps", 'c': c,  'adapt_flag': 'mom1', 'momentum':0.1}]
 
-EXP_GROUPS['sps_syn'] = hu.cartesian_exp_group(get_benchmark(benchmark='syn', opt_list= [{'name':'sgd'}]+sps_list_mom_gamma))
-EXP_GROUPS['sps_mnist'] = hu.cartesian_exp_group(get_benchmark(benchmark='mnist', opt_list=[{'name':'sgd'}]+sps_list_mom_gamma))
+EXP_GROUPS['sps_syn'] = hu.cartesian_exp_group(get_benchmark(benchmark='syn', opt_list= [{'name':'sgd_goldstein'}]+sps_list_mom_gamma))
+EXP_GROUPS['sps_mnist'] = hu.cartesian_exp_group(get_benchmark(benchmark='mnist', opt_list=[{'name':'sgd_goldstein'}]+sps_list_mom_gamma))
