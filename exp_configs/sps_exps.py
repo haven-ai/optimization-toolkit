@@ -148,9 +148,14 @@ for c in [.1,.2,.3,.4,.5,.6,.7,.8,.9]:
 #     # sps_list += [{'name': "sps", 'c': c,  'adapt_flag': 'smooth_iter'}]
 #     sps_list += [{'name': "sps", 'c': c,  'adapt_flag': 'mom1', 'momentum':0.1}]
 
+<<<<<<< HEAD
 opt_list = same_momentum + sps_list_mom_gamma
 
 EXP_GROUPS['sps_syn'] = hu.cartesian_exp_group(get_benchmark(benchmark='syn', opt_list=opt_list))
 EXP_GROUPS['sps_mnist'] = hu.cartesian_exp_group(get_benchmark(benchmark='mnist', opt_list=opt_list))
 EXP_GROUPS['sps_cifar10'] = hu.cartesian_exp_group(get_benchmark(benchmark='cifar10', opt_list=opt_list))
 EXP_GROUPS['sps_cifar100'] = hu.cartesian_exp_group(get_benchmark(benchmark='cifar100', opt_list=opt_list))
+=======
+EXP_GROUPS['sps_syn'] = hu.cartesian_exp_group(get_benchmark(benchmark='syn', opt_list= [{'name':'sgd_goldstein'}]+sps_list_mom_gamma))
+EXP_GROUPS['sps_mnist'] = hu.cartesian_exp_group(get_benchmark(benchmark='mnist', opt_list=[{'name':'sgd_goldstein'}]+sps_list_mom_gamma))
+>>>>>>> c3449f78b3b0f82010e88e07160069e46ba4dbef

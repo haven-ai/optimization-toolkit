@@ -80,7 +80,7 @@ class Classifier(torch.nn.Module):
                                                                     backpack=(use_backpack and not for_backtracking))
             loss = self.opt.step(closure)
                     
-        elif (name in ["sgd_armijo", "ssn", 'adaptive_first', 'l4', 'ali_g']):
+        elif (name in ["sgd_armijo", "ssn", 'adaptive_first', 'l4', 'ali_g', 'sgd_goldstein', 'sgd_nesterov', 'sgd_polyak']):
             closure = lambda : loss_function(self.model_base, images, labels, backwards=False, backpack=use_backpack)
             loss = self.opt.step(closure)
                     
@@ -88,7 +88,7 @@ class Classifier(torch.nn.Module):
             closure = lambda : loss_function(self.model_base, images, labels, backwards=False, backpack=use_backpack)
             loss = self.opt.step(closure, batch)
 
-        elif (name in ["adam", "adagrad", 'radam', 'plain_radam', 'adabound']):
+        elif (name in ['sgd', "adam", "adagrad", 'radam', 'plain_radam', 'adabound', 'sgd_m', 'amsbound', 'rmsprop', 'lookahead']):
             loss = loss_function(self.model_base, images, labels, backpack=use_backpack)
             loss.backward()
             self.opt.step()

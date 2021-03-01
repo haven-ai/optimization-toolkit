@@ -3,7 +3,7 @@ import numpy as np
 from . import others
 from . import adaptive_first, adaptive_second
 import torch
-from src.optimizers import sls, sps, ssn
+from src.optimizers import sls, sps, ssn, sls_acc, sls_eg
 
 
 def get_optimizer(opt, params, train_loader, exp_dict):
@@ -91,13 +91,13 @@ def get_optimizer(opt, params, train_loader, exp_dict):
                       line_search_fn="goldstein")
 
     elif opt_name == "sgd_nesterov":
-        opt = sls.SlsAcc(params, 
+        opt = sls_acc.SlsAcc(params, 
                         acceleration_method="nesterov", 
                         gamma=opt_dict.get("gamma", 2.0),
                         aistats_eta_bound=opt_dict.get("aistats_eta_bound", 10.0))
 
     elif opt_name == "sgd_polyak":
-        opt = sls.SlsAcc(params, 
+        opt = sls_acc.SlsAcc(params, 
                          c=opt_dict.get("c") or 0.1,
                          momentum=opt_dict.get("momentum", 0.6),
                          n_batches_per_epoch=n_batches_per_epoch,
@@ -107,7 +107,7 @@ def get_optimizer(opt, params, train_loader, exp_dict):
                          reset_option=opt_dict.get("reset", 0))
 
     elif opt_name == "seg":
-        opt = sls.SlsEg(params, n_batches_per_epoch=n_batches_per_epoch)
+        opt = sls_eg.SlsEg(params, n_batches_per_epoch=n_batches_per_epoch)
 
     elif opt_name == "ssn":
         opt = ssn.Ssn(params, 
@@ -130,7 +130,7 @@ def get_optimizer(opt, params, train_loader, exp_dict):
 
     elif opt_name == 'sgd':
         # best_lr = lr if lr else 1e-3
-        opt = torch.optim.SGD(params, lr=opt['lr'])
+        opt = torch.optim.SGD(params, lr=opt.get('lr', 1e-3), momentum=opt.get('momentum', 0))
 
     elif opt_name == "sgd-m":
         best_lr = lr if lr else 1e-3
