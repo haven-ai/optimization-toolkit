@@ -26,9 +26,10 @@ class SlsAcc(torch.optim.Optimizer):
         self.init_step_size = init_step_size
         self.acceleration_method = acceleration_method
         self.state['step'] = 0
-
+        self.n_batches_per_epoch = 500
+        self.eta_max=None
         self.state['step_size'] = init_step_size
-
+        
 
         self.state['n_forwards'] = 0
         self.state['n_backwards'] = 0
@@ -57,11 +58,15 @@ class SlsAcc(torch.optim.Optimizer):
 
         batch_step_size = self.state['step_size']
 
+
+        
         step_size = ut.reset_step(step_size=batch_step_size,
+                                   n_batches_per_epoch=self.n_batches_per_epoch,
                                    gamma=self.gamma,
                                    reset_option=self.reset_option,
-                                   init_step_size=self.init_step_size)
-
+                                   init_step_size=self.init_step_size,
+                                   eta_max=self.eta_max)
+        
         # get loss and compute gradients
         loss = closure_deterministic()
         loss.backward()
