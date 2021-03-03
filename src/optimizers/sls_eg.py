@@ -29,6 +29,9 @@ class SlsEg(torch.optim.Optimizer):
 
         self.state['n_forwards'] = 0
         self.state['n_backwards'] = 0
+        
+        self.n_batches_per_epoch = 500
+        self.eta_max=None
 
         self.reset_option = reset_option
 
@@ -45,7 +48,8 @@ class SlsEg(torch.optim.Optimizer):
                                    n_batches_per_epoch=self.n_batches_per_epoch,
                                    gamma=self.gamma,
                                    reset_option=self.reset_option,
-                                   init_step_size=self.init_step_size)
+                                   init_step_size=self.init_step_size,
+                                   eta_max=self.eta_max)
 
         # get loss and compute gradients
         loss = closure_deterministic()
