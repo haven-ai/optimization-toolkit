@@ -111,37 +111,39 @@ python trainval.py -e new_benchmark -v 1 -d ../results -sb ../results
 
 * adaptive_first [paper]()
 
-* SGD with Armijo line search [paper](https://msp.org/pjm/1966/16-1/p01.xhtml)
+* SGD with Armijo line search [Minimization of functions having Lipschitz continuous first partial derivatives](https://msp.org/pjm/1966/16-1/p01.xhtml)
 
-* SGD with Goldstein [paper](https://idp.springer.com/authorize/casa?redirect_uri=https://link.springer.com/article/10.1007/BF01386306&casa_token=fJPrXJ0xVwIAAAAA:rFFa9IMPl50d2j7xqq3MVrA-L92-O1gdSnlEElXZ7PxnWQYaZQ0LsAWjqjs4TmJb0nHhiNPf1KgVxRhTUw)
+* SGD with Goldstein [Cauchy's method of minimization](https://idp.springer.com/authorize/casa?redirect_uri=https://link.springer.com/article/10.1007/BF01386306&casa_token=fJPrXJ0xVwIAAAAA:rFFa9IMPl50d2j7xqq3MVrA-L92-O1gdSnlEElXZ7PxnWQYaZQ0LsAWjqjs4TmJb0nHhiNPf1KgVxRhTUw)
 
-* sgd_nesterov [paper](https://ci.nii.ac.jp/naid/10029946121/)
+* sgd_nesterov [A method for solving the convex programming problem with convergence rate O(1/k^2)](https://ci.nii.ac.jp/naid/10029946121/)
 
-* sgd_polyak [paper](https://d1wqtxts1xzle7.cloudfront.net/51218896/Constrained_Minimization_Methods20170106-3612-16x3v7.pdf?1483706492=&response-content-disposition=inline%3B+filename%3DConstrained_minimization_methods.pdf&Expires=1614407156&Signature=CScszoHzcd4MwWlD1K3Nr1wQ8ukdf~7Y4Z0o9ONncWnUa1UdIhAFNkca7YulYozBOBpPqg1As4A5ChI4r6NGD8~UDb-l3dg5b4s72svQlN1mTgH1kqRanM2~DbGoOJ9Tg4n9drBdZtswe9~mYAyO2LfSlUzAKIWP9qsP8hHxCm9eBVEJOtfU~2erYoVLSzF8-7iN9jO4lnOIv3rJg4zwz470oXK02cOHpwkslr5yQBah4LHV6SpR22JYOQ4Lve6Gl7rdusxX0Txpqbc9UNXOQWoXK~SM-G~iINT1BlQDZepVv4ZMH4~969LV8ORiEAXpyXYZuEPHrWJWULsUd1oEFg__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA)
+* sgd_polyak [Gradient methods for minimizing functionals](https://www.researchgate.net/publication/243648552_Gradient_methods_for_the_minimisation_of_functionals)
 
 * adam [paper](https://arxiv.org/pdf/1412.6980.pdf)
 
-* adagrad [paper](https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf)
+* adagrad [Adaptive Subgradient Methods for Online Learning and Stochastic Optimization](https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf)
 
-* ssn [paper](https://arxiv.org/pdf/1910.04920.pdf)
+* ssn [Fast and Furious Convergence:
+Stochastic Second-Order Methods under Interpolation](https://arxiv.org/pdf/1910.04920.pdf)
 
 * seg [paper]()
 
-* sgd [paper](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-3/Stochastic-Estimation-of-the-Maximum-of-a-Regression-Function/10.1214/aoms/1177729392.full)
+* sgd [Stochastic Estimation of the Maximum of a Regression Function](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-3/Stochastic-Estimation-of-the-Maximum-of-a-Regression-Function/10.1214/aoms/1177729392.full)
 
 * sgd-m [paper]()
 
-* rmsprop [paper](https://arxiv.org/pdf/1308.0850.pdf)
+* rmsprop [Generating Sequences With Recurrent Neural Networks](https://arxiv.org/pdf/1308.0850.pdf)
 
-* adabound [paper](https://openreview.net/forum?id=Bkg3g2R9FX)
+* adabound [Adaptive Gradient Methods with Dynamic Bound of Learning Rate](https://openreview.net/forum?id=Bkg3g2R9FX)
 
-* amsbound [paper](https://openreview.net/forum?id=Bkg3g2R9FX)
+* amsbound [Adaptive Gradient Methods with Dynamic Bound of Learning Rate](https://openreview.net/forum?id=Bkg3g2R9FX)
 
-* sps [paper](https://arxiv.org/pdf/2002.10542.pdf)
+* sps [Stochastic Polyak Step-size for SGD:
+An Adaptive Learning Rate for Fast Convergence](https://arxiv.org/pdf/2002.10542.pdf)
 
-* lookahead [paper](https://arxiv.org/abs/1907.08610)
+* lookahead [Lookahead Optimizer: k steps forward, 1 step back](https://arxiv.org/abs/1907.08610)
 
-* radam [paper](https://arxiv.org/abs/1908.03265)
+* radam [On the Variance of the Adaptive Learning Rate and Beyond](https://arxiv.org/abs/1908.03265)
 
 
 
