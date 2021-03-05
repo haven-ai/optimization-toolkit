@@ -19,50 +19,78 @@ The goal of this repository is
 `pip install -r requirements.txt` 
 
 
-**To run the experiments locally:**
+**To run the experiments and get the validation results locally:**
 
 ```
 python trainval.py -e <expconfig> -r "0" -d <datadir> -sb <savedir_base> -nw "0" -j "0"
+
+<expconfig>             Name definition of the experiment experiment configuration
+<datadir>               Path to the saved data directory
+<savedir_base>          Path to the saved results directory
 ```
 
-where `<expconfig>` is the name definition of the experiment experiment configuration, `<datadir>` is where the data is saved, and `<savedir_base>` is where the results will be saved.
 
 
-**To run the experiments in slurm:**
+
+**To run the experiments and get the validationn results in slurm:**
 ```
 python trainval.py -e <expconfig> -r "0" -d <datadir> -sb <savedir_base> -nw "0" -j "slurm"
+
+<expconfig>             Name definition of the experiment experiment configuration
+<datadir>               Path to the saved data directory
+<savedir_base>          Path to the saved results directory
 ```
-where `<expconfig>` is the name definition of the experiment experiment configuration, `<datadir>` is where the data is saved, and `<savedir_base>` is where the results will be saved.
 
 
-**To test the experiments :**
-```
-python test.py [-h] [--model_path [MODEL_PATH]] [--dataset [DATASET]]
-               [--dcrf [DCRF]] [--img_path [IMG_PATH]] [--out_path [OUT_PATH]]
- 
-  --model_path          Path to the saved model
-  --dataset             Dataset to use ['pascal, camvid, ade20k etc']
-  --dcrf                Enable DenseCRF based post-processing
-  --img_path            Path of the input image
-  --out_path            Path of the output segmap
 
-```
 **To view the results :**
 
 Example
 ```
 python trainval.py -e <expconfig> -v 1 -d <datadir> -sb <savedir_base>
-```
 
-where `<expconfig>` is the name definition of the experiment experiment configuration, `<datadir>` is where the data is saved, and `<savedir_base>` is where the results will be saved.
+<expconfig>             Name definition of the experiment experiment configuration
+<datadir>               Path to the saved data directory
+<savedir_base>          Path to the saved results directory
+```
 
 ## Adding a new benchmark
 
 **Add an optimizer**
 
+1. Define a new optimizer in `src/optimizers/<new_optimizer>.py`.
+2. Init the constructor for `opt_name = "<new_optimizer>"` in `src/optimizers/__init__.py`.
+
+For example,
+```
+elif opt_name == "seg":
+        opt = sls_eg.SlsEg(params, n_batches_per_epoch=n_batches_per_epoch)
+```
+
 **Add a dataset**
 
-**Add a network**
+Define a new dataset and its according transformations in `src/datasets/__init__.py` for `dataset_name = "<new_dataset>"`.
+
+For example,
+```
+   if dataset_name == "mnist":
+        view = torchvision.transforms.Lambda(lambda x: x.view(-1).view(784))
+        dataset = torchvision.datasets.MNIST(datadir, train=train_flag,
+                               download=True,
+                               transform=torchvision.transforms.Compose([
+                                   torchvision.transforms.ToTensor(),
+                                   torchvision.transforms.Normalize(
+                                       (0.5,), (0.5,)),
+                                   view
+                               ])
+                               )
+```
+
+**Add a model**
+
+1. Define the matrics, loss functionn, and the accuracy function in the `src/models/classifiers.py`
+2. Define the base model in the `get_classifier(clf_name, train_set)` function in `src/models/base_classifiers.py`.
+
 
 **Run the new benchmark**
 
