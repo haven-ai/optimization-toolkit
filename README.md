@@ -120,23 +120,29 @@ python trainval.py -e new_benchmark -v 1 -d ../results -sb ../results
 ## Leaderboard
 The section is being continually updated with the latest optimizers on standard benchmarks.
 
-Show the training loss and validation accuracy with 5 runs as in https://github.com/IssamLaradji/ada_sls
-
 ### synthetic
+![alt text](results/syn.png)
 
 ### ijcnn
+![alt text](results/ijcnn.png)
 
 ### rcv1
+![alt text](results/rcv1.png)
 
 ### mushrooms
+![alt text](results/mushrooms.png)
 
 ### w8a
+![alt text](results/w8a.png)
 
-### MNIST - LeNet
+### MNIST - MLP
+![alt text](results/mnist.png)
 
 ### CIFAR10 - ResNet34
+![alt text](results/cifar10.png)
 
 ### CIFAR100 - ResNet34
+![alt text](results/cifar100.png)
 
 
 
