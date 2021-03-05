@@ -93,8 +93,7 @@ def get_optimizer(opt, params, train_loader, exp_dict):
     elif opt_name == "sgd_nesterov":
         opt = sls_acc.SlsAcc(params, 
                         acceleration_method="nesterov", 
-                        gamma=opt_dict.get("gamma", 2.0),
-                        aistats_eta_bound=opt_dict.get("aistats_eta_bound", 10.0))
+                        gamma=opt_dict.get("gamma", 2.0))
 
     elif opt_name == "sgd_polyak":
         opt = sls_acc.SlsAcc(params, 
@@ -103,7 +102,6 @@ def get_optimizer(opt, params, train_loader, exp_dict):
                          n_batches_per_epoch=n_batches_per_epoch,
                          gamma=opt_dict.get("gamma", 2.0),
                          acceleration_method="polyak",
-                         aistats_eta_bound=opt_dict.get("aistats_eta_bound", 10.0),
                          reset_option=opt_dict.get("reset", 0))
 
     elif opt_name == "seg":

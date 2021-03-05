@@ -14,7 +14,8 @@ class SlsAcc(torch.optim.Optimizer):
                  gamma=2.0,
                  momentum=0.6,
                  reset_option=0,
-                 acceleration_method="polyak"):
+                 acceleration_method="polyak",
+                 n_batches_per_epoch=500):
         params = list(params)
         super().__init__(params, {})
 
@@ -26,7 +27,7 @@ class SlsAcc(torch.optim.Optimizer):
         self.init_step_size = init_step_size
         self.acceleration_method = acceleration_method
         self.state['step'] = 0
-        self.n_batches_per_epoch = 500
+        self.n_batches_per_epoch = n_batches_per_epoch
         self.eta_max=None
         self.state['step_size'] = init_step_size
         
@@ -102,13 +103,14 @@ class SlsAcc(torch.optim.Optimizer):
                     self.state['n_forwards'] += 1
 
                     armijo_results = ut.check_armijo_conditions(step_size=step_size,
-                                                    step_size_old=step_size_old,
+                                                    # step_size_old=step_size_old,
                                                     loss=loss,
                                                     grad_norm=grad_norm,
                                                     loss_next=loss_next,
                                                     c=self.c,
                                                     beta_b=self.beta_b)
-                    found, step_size, step_size_old = armijo_results
+                    # found, step_size, step_size_old = armijo_results
+                    found, step_size = armijo_results
                     if found == 1:
                         break
                    

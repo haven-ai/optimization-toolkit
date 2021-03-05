@@ -96,8 +96,7 @@ sgd_goldstein = [{'name': "sgd_goldstein",
                   'c': 0.1,
                   'reset_option': 0}]
 sgd_nesterov = [{'name': "sgd_nesterov",
-                 'gamma': 2.0,
-                 "aistats_eta_bound": 10.0}]
+                 'gamma': 2.0}]
 sgd_polyak = [{'name': "sgd_polyak",
                'c': 0.1,
                'momentum': 0.6,
@@ -122,8 +121,8 @@ plain_radam = [{'name': 'plain_radam'}]
 
 opt_list = sps + adaptive_first + sgd_armijo + sgd_goldstein + ssn + \
     adam + adagrad + sgd + sgd_m + rmsprop + adabound + \
-    amsbound + lookahead + radam + plain_radam
-#     + seg + sgd_nesterov + sgd_polyak
+    amsbound + lookahead + radam + plain_radam + \
+    seg + sgd_nesterov + sgd_polyak
 
 
 EXP_GROUPS['mnist'] = hu.cartesian_exp_group(
