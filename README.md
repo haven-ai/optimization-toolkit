@@ -108,6 +108,10 @@ python trainval.py -e new_benchmark -v 1 -d ../results -sb ../results
 
 ### Optimizers Implemented 
 
+| Name | Conference/Journal | Implemented   | 
+| ---- |  ----- | ----- | 
+| Adam| [ICLR2015](https://arxiv.org/pdf/1412.6980.pdf)  | [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+
 * adaptive_first [paper]()
 
 * SGD with Armijo line search [Minimization of functions having Lipschitz continuous first partial derivatives](https://msp.org/pjm/1966/16-1/p01.xhtml)
@@ -129,7 +133,6 @@ Stochastic Second-Order Methods under Interpolation](https://arxiv.org/pdf/1910.
 
 * sgd [Stochastic Estimation of the Maximum of a Regression Function](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-3/Stochastic-Estimation-of-the-Maximum-of-a-Regression-Function/10.1214/aoms/1177729392.full)
 
-* sgd-m [paper]()
 
 * rmsprop [Generating Sequences With Recurrent Neural Networks](https://arxiv.org/pdf/1308.0850.pdf)
 
