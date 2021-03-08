@@ -151,7 +151,7 @@ An Adaptive Learning Rate for Fast Convergence](https://arxiv.org/pdf/2002.10542
 
 
 
-## Leaderboard
+## Leaderboard (Check out the optimizers in [Google Colab](https://colab.research.google.com/drive/1pC3M9qTNXuUfvlKRyJuUBcHa8ZRU8oir#scrollTo=BRGIn6grTkjq))
 The section is being continually updated with the latest optimizers on standard benchmarks.
 
 ### synthetic
