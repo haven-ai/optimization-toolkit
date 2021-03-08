@@ -12,7 +12,7 @@ The goal of this repository is
 - Leaderboard
 
 
-## Quick Start (similar to Usage in https://github.com/meetshah1995/pytorch-semseg)
+## Quick Start 
 
 
 **Install requirements**
@@ -106,8 +106,7 @@ Train using the following command
 python trainval.py -e new_benchmark -v 1 -d ../results -sb ../results
 ```
 
-### Optimizers Implemented (similar to https://github.com/gjy3035/Awesome-Crowd-Counting - add paper and a one line title of the optimizer which is the paper's name and divide them by year)
-
+### Optimizers Implemented 
 
 * adaptive_first [paper]()
 
