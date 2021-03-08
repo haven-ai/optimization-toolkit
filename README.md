@@ -4,12 +4,14 @@ The goal of this repository is
   - to illustrate how different optimizers perform on different datasets using a standard benchmark; and 
   - allow users to add their own datasets and optimizers to have a reliable comparison and inspire new state-of-the-art optimizers for different machine learning problem setups.
 
-## Contents
+## Quick links to sections in this page
 
-- Quick Start
-- Adding new benchmarks
-- Optimizers Implemented
-- Leaderboard
+| | | |
+|-|-|-|
+|[🔍 Quick Start](#explaining-black-box-models-and-datasets) |[🔏 Adding new benchmarks](#privacy-preserving-machine-learning) | [📜 Optimizers Implemented](#model-and-data-versioning)|
+|[🏁 Leaderboard](#model-training-orchestration)|
+
+
 
 
 ## Quick Start 
