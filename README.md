@@ -21,7 +21,7 @@ The goal of this repository is
 
 **To run the experiments and get the validation results locally:**
 
-```
+```python
 python trainval.py -e <expconfig> -r "0" -d <datadir> -sb <savedir_base> -nw "0" -j "0"
 
 <expconfig>             Name definition of the experiment experiment configuration
