@@ -130,10 +130,6 @@ def get_optimizer(opt, params, train_loader, exp_dict):
         # best_lr = lr if lr else 1e-3
         opt = torch.optim.SGD(params, lr=opt.get('lr', 1e-3), momentum=opt.get('momentum', 0))
 
-    elif opt_name == "sgd-m":
-        best_lr = lr if lr else 1e-3
-        opt = torch.optim.SGD(params, lr=best_lr, momentum=0.9)
-
     elif opt_name == 'rmsprop':
         opt = torch.optim.RMSprop(params, lr=opt['lr'])
 
@@ -153,6 +149,8 @@ def get_optimizer(opt, params, train_loader, exp_dict):
                         eps=opt_dict.get('eps', 0),
                         gamma=opt_dict.get('gamma', 2),
                         momentum=opt_dict.get('momentum', 0),
+                        exp_dict=exp_dict,
+                        # init_step_size=init_step_size
                         )
 
 

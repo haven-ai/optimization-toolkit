@@ -19,8 +19,10 @@ class Sps(torch.optim.Optimizer):
                  fstar_flag=None,
                  eps=0,
                  momentum=0, 
-                 mom_flag=None):
+                 mom_flag=None,
+                 exp_dict=None):
         params = list(params)
+        self.exp_dict = exp_dict
         self.mom_flag = mom_flag
         super().__init__(params, {})
         self.eps = eps
@@ -122,11 +124,19 @@ class Sps(torch.optim.Optimizer):
             coeff = self.gamma**(1./self.n_batches_per_epoch)
             step_size =  min(coeff * self.state['step_size'], step_size.item())
 
+        elif self.adapt_flag in ['smooth_iter_z']:
+            z = self.exp_dict['opt']['z']
+
+            curr_step_size = float(loss / (self.c * (grad_norm)**2))
+            prev_step_size = self.state['step_size']
+            step_size =  z*curr_step_size + (1-z) * prev_step_size
+            assert step_size > 0
+                
+
         elif self.adapt_flag in ['mom1']:
             step_size = loss / (self.c * (grad_norm)**2)
             coeff = self.gamma**(1./self.n_batches_per_epoch)
-            step_size =  min(coeff * self.state['step_size'], 
-                             step_size.item())
+            step_size =  min(coeff * self.state['step_size'], step_size.item())
             beta = self.momentum 
             loss_curr = loss.item()
 
@@ -178,6 +188,7 @@ class Sps(torch.optim.Optimizer):
                 
 
             self.state['loss_prev'] = f_xk
+            
         
         # update with step size
         if self.adapt_flag in MOM_FLAGS:
@@ -187,7 +198,8 @@ class Sps(torch.optim.Optimizer):
             self.params_prev = params_tmp
         else:
             for p, g in zip(self.params, grad_current):
-                p.data.add_(alpha=- float(step_size), tensor=g)
+                p.data = p - step_size * g
+                # p.data.add_(alpha=- float(step_size), tensor=g)
             
         # save the new step-size
         self.state['step_size'] = float(step_size)

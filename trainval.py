@@ -141,11 +141,13 @@ if __name__ == "__main__":
     parser.add_argument("-j", "--job_scheduler", default=None, type=str)
     args, others = parser.parse_known_args()
 
+
     try:
         hw.run_wizard(func=trainval, 
                     exp_groups=exp_configs.EXP_GROUPS, 
                     job_config=job_configs.JOB_CONFIG, 
                     job_scheduler=args.job_scheduler,
+                    python_binary_path='/mnt/home/miniconda3/bin/python',
                     use_threads=True, args=args)
     except:
         hw.run_wizard(func=trainval, 
