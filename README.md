@@ -8,7 +8,7 @@ The goal of this repository is
 
 | | | |
 |-|-|-|
-|[🔍 Quick Start](#explaining-black-box-models-and-datasets) |[🔏 Adding new benchmarks](#privacy-preserving-machine-learning) | [📜 Optimizers Implemented](#model-and-data-versioning)|
+|[🔍 Quick Start](#Quick-Start) |[🔏 Adding new benchmarks](#privacy-preserving-machine-learning) | [📜 Optimizers Implemented](#model-and-data-versioning)|
 |[🏁 Leaderboard](#model-training-orchestration)|
 
 
@@ -35,7 +35,7 @@ python trainval.py -e <expconfig> -r "0" -d <datadir> -sb <savedir_base> -nw "0"
 
 
 **To run the experiments and get the validationn results in slurm:**
-```
+```python
 python trainval.py -e <expconfig> -r "0" -d <datadir> -sb <savedir_base> -nw "0" -j "slurm"
 
 <expconfig>             Name definition of the experiment experiment configuration
@@ -48,7 +48,7 @@ python trainval.py -e <expconfig> -r "0" -d <datadir> -sb <savedir_base> -nw "0"
 **To view the results :**
 
 Example
-```
+```python
 python trainval.py -e <expconfig> -v 1 -d <datadir> -sb <savedir_base>
 
 <expconfig>             Name definition of the experiment experiment configuration
@@ -64,7 +64,7 @@ python trainval.py -e <expconfig> -v 1 -d <datadir> -sb <savedir_base>
 2. Init the constructor for `opt_name = "<new_optimizer>"` in `src/optimizers/__init__.py`.
 
 For example,
-```
+```python
 elif opt_name == "seg":
         opt = sls_eg.SlsEg(params, n_batches_per_epoch=n_batches_per_epoch)
 ```
@@ -74,7 +74,7 @@ elif opt_name == "seg":
 Define a new dataset and its according transformations in `src/datasets/__init__.py` for `dataset_name = "<new_dataset>"`.
 
 For example,
-```
+```python
    if dataset_name == "mnist":
         view = torchvision.transforms.Lambda(lambda x: x.view(-1).view(784))
         dataset = torchvision.datasets.MNIST(datadir, train=train_flag,
@@ -97,7 +97,7 @@ For example,
 **Run the new benchmark**
 
 Define the experiment configuration you would like to run. The dataset, models, optimizers, and hyperparameters can all be defined in the experiment configurations.
-```
+```python
 EXP_GROUPS['new_benchmark'] = {"dataset": [<dataset_name>],
                      "model_base": [<network_name>],
                      "opt": [<optimizer_dict>],}
@@ -113,41 +113,19 @@ python trainval.py -e new_benchmark -v 1 -d ../results -sb ../results
 | Name | Conference/Journal | Implemented   | 
 | ---- |  ----- | ----- | 
 | Adam| [ICLR2015](https://arxiv.org/pdf/1412.6980.pdf)  | [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
-
-* adaptive_first [paper]()
-
-* SGD with Armijo line search [Minimization of functions having Lipschitz continuous first partial derivatives](https://msp.org/pjm/1966/16-1/p01.xhtml)
-
-* SGD with Goldstein [Cauchy's method of minimization](https://idp.springer.com/authorize/casa?redirect_uri=https://link.springer.com/article/10.1007/BF01386306&casa_token=fJPrXJ0xVwIAAAAA:rFFa9IMPl50d2j7xqq3MVrA-L92-O1gdSnlEElXZ7PxnWQYaZQ0LsAWjqjs4TmJb0nHhiNPf1KgVxRhTUw)
-
-* sgd_nesterov [A method for solving the convex programming problem with convergence rate O(1/k^2)](https://ci.nii.ac.jp/naid/10029946121/)
-
-* sgd_polyak [Gradient methods for minimizing functionals](https://www.researchgate.net/publication/243648552_Gradient_methods_for_the_minimisation_of_functionals)
-
-* adam [paper](https://arxiv.org/pdf/1412.6980.pdf)
-
-* adagrad [Adaptive Subgradient Methods for Online Learning and Stochastic Optimization](https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf)
-
-* ssn [Fast and Furious Convergence:
-Stochastic Second-Order Methods under Interpolation](https://arxiv.org/pdf/1910.04920.pdf)
-
-* seg [paper]()
-
-* sgd [Stochastic Estimation of the Maximum of a Regression Function](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-3/Stochastic-Estimation-of-the-Maximum-of-a-Regression-Function/10.1214/aoms/1177729392.full)
-
-
-* rmsprop [Generating Sequences With Recurrent Neural Networks](https://arxiv.org/pdf/1308.0850.pdf)
-
-* adabound [Adaptive Gradient Methods with Dynamic Bound of Learning Rate](https://openreview.net/forum?id=Bkg3g2R9FX)
-
-* amsbound [Adaptive Gradient Methods with Dynamic Bound of Learning Rate](https://openreview.net/forum?id=Bkg3g2R9FX)
-
-* sps [Stochastic Polyak Step-size for SGD:
-An Adaptive Learning Rate for Fast Convergence](https://arxiv.org/pdf/2002.10542.pdf)
-
-* lookahead [Lookahead Optimizer: k steps forward, 1 step back](https://arxiv.org/abs/1907.08610)
-
-* radam [On the Variance of the Adaptive Learning Rate and Beyond](https://arxiv.org/abs/1908.03265)
+| SGD with Goldstein| [ Numer. Math 1962](https://idp.springer.com/authorize/casa?redirect_uri=https://link.springer.com/article/10.1007/BF01386306&casa_token=fJPrXJ0xVwIAAAAA:rFFa9IMPl50d2j7xqq3MVrA-L92-O1gdSnlEElXZ7PxnWQYaZQ0LsAWjqjs4TmJb0nHhiNPf1KgVxRhTUw)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| SGD with Armijo line search | [Pac. J. Math. 1966](https://msp.org/pjm/1966/16-1/p01.xhtml)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| SGD_nesterov| [Proc. USSR Acad. Sci 1983](https://ci.nii.ac.jp/naid/10029946121/)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| SGD_polyak| [USSR Comput. Math. Math. Phys. 1963](https://www.researchgate.net/publication/243648552_Gradient_methods_for_the_minimisation_of_functionals)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| Adagrad| [JMLR2011](https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| SSN| [PMLR2020](https://arxiv.org/pdf/1910.04920.pdf)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| SGD| [Ann. Math. Stat. 1952](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-3/Stochastic-Estimation-of-the-Maximum-of-a-Regression-Function/10.1214/aoms/1177729392.full)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| RMSprop| [Generating Sequences With Recurrent Neural Networks(2014)](https://arxiv.org/pdf/1308.0850.pdf)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| Adabound |[ICLR2019](https://arxiv.org/abs/1902.09843)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| Amsbound| [ICLR2019](https://arxiv.org/abs/1902.09843) | [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| SPS| [AISTATS2021](https://arxiv.org/pdf/2002.10542.pdf)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| Lookahead| [NeurIPS2019](https://arxiv.org/abs/1907.08610)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| Radam| [ICLR2020](https://arxiv.org/abs/1908.03265)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
 
 
 
