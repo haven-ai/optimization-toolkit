@@ -9,7 +9,7 @@ The goal of this repository is
 | | |
 |-|-|
 |[🔍 Quick Start](#Quick-Start) |[🔏 Adding new benchmarks](#Adding-a-new-benchmark)|
-|[📜 Optimizers Implemented](#Optimizers-Implemented)||[🏁 Leaderboard](#Leaderboard)|
+|[📜 Optimizers Implemented](#Optimizers-Implemented)|[🏁 Leaderboard](#Leaderboard)|
 
 
 
@@ -113,19 +113,19 @@ python trainval.py -e new_benchmark -v 1 -d ../results -sb ../results
 | Name | Conference/Journal | Implemented   | 
 | ---- |  ----- | ----- | 
 | Adam| [ICLR2015](https://arxiv.org/pdf/1412.6980.pdf)  | [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
-| SGD with Goldstein| [ Numer. Math 1962](https://idp.springer.com/authorize/casa?redirect_uri=https://link.springer.com/article/10.1007/BF01386306&casa_token=fJPrXJ0xVwIAAAAA:rFFa9IMPl50d2j7xqq3MVrA-L92-O1gdSnlEElXZ7PxnWQYaZQ0LsAWjqjs4TmJb0nHhiNPf1KgVxRhTUw)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
-| SGD with Armijo line search | [Pac. J. Math. 1966](https://msp.org/pjm/1966/16-1/p01.xhtml)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
-| SGD_nesterov| [Proc. USSR Acad. Sci 1983](https://ci.nii.ac.jp/naid/10029946121/)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
-| SGD_polyak| [USSR Comput. Math. Math. Phys. 1963](https://www.researchgate.net/publication/243648552_Gradient_methods_for_the_minimisation_of_functionals)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| SGD with Goldstein| [ Numer. Math 1962](https://idp.springer.com/authorize/casa?redirect_uri=https://link.springer.com/article/10.1007/BF01386306&casa_token=fJPrXJ0xVwIAAAAA:rFFa9IMPl50d2j7xqq3MVrA-L92-O1gdSnlEElXZ7PxnWQYaZQ0LsAWjqjs4TmJb0nHhiNPf1KgVxRhTUw)| [Yes (opt=sgd_goldstein)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| SGD with Armijo line search | [Pac. J. Math. 1966](https://msp.org/pjm/1966/16-1/p01.xhtml)| [Yes (opt=sgd_armijo)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| SGD_nesterov| [Proc. USSR Acad. Sci 1983](https://ci.nii.ac.jp/naid/10029946121/)| [Yes (opt=sgd_nesterov)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| SGD_polyak| [USSR Comput. Math. Math. Phys. 1963](https://www.researchgate.net/publication/243648552_Gradient_methods_for_the_minimisation_of_functionals)| [Yes (opt=sgd_polyak)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
 | Adagrad| [JMLR2011](https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
-| SSN| [PMLR2020](https://arxiv.org/pdf/1910.04920.pdf)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
-| SGD| [Ann. Math. Stat. 1952](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-3/Stochastic-Estimation-of-the-Maximum-of-a-Regression-Function/10.1214/aoms/1177729392.full)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
-| RMSprop| [Generating Sequences With Recurrent Neural Networks(2014)](https://arxiv.org/pdf/1308.0850.pdf)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
-| Adabound |[ICLR2019](https://arxiv.org/abs/1902.09843)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
-| Amsbound| [ICLR2019](https://arxiv.org/abs/1902.09843) | [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
-| SPS| [AISTATS2021](https://arxiv.org/pdf/2002.10542.pdf)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
-| Lookahead| [NeurIPS2019](https://arxiv.org/abs/1907.08610)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
-| Radam| [ICLR2020](https://arxiv.org/abs/1908.03265)| [Yes (opt=adam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| SSN| [PMLR2020](https://arxiv.org/pdf/1910.04920.pdf)| [Yes (opt=adagrad)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| SGD| [Ann. Math. Stat. 1952](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-3/Stochastic-Estimation-of-the-Maximum-of-a-Regression-Function/10.1214/aoms/1177729392.full)| [Yes (opt=sgd)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| RMSprop| [Generating Sequences With Recurrent Neural Networks(2014)](https://arxiv.org/pdf/1308.0850.pdf)| [Yes (opt=rmsprop)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| Adabound |[ICLR2019](https://arxiv.org/abs/1902.09843)| [Yes (opt=adabound)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| Amsbound| [ICLR2019](https://arxiv.org/abs/1902.09843) | [Yes (opt=amsbound)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| SPS| [AISTATS2021](https://arxiv.org/pdf/2002.10542.pdf)| [Yes (opt=sps)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| Lookahead| [NeurIPS2019](https://arxiv.org/abs/1907.08610)| [Yes (opt=lookahead)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
+| Radam| [ICLR2020](https://arxiv.org/abs/1908.03265)| [Yes (opt=radam)](https://github.com/haven-ai/optimization-benchmark/blob/main/src/optimizers/__init__.py) |
 
 
 
