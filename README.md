@@ -6,10 +6,10 @@ The goal of this repository is
 
 ## Quick links to sections in this page
 
-| | | |
-|-|-|-|
-|[🔍 Quick Start](#Quick-Start) |[🔏 Adding new benchmarks](#privacy-preserving-machine-learning) | [📜 Optimizers Implemented](#model-and-data-versioning)|
-|[🏁 Leaderboard](#model-training-orchestration)|
+| | |
+|-|-|
+|[🔍 Quick Start](#Quick-Start) |[🔏 Adding new benchmarks](#Adding-a-new-benchmark)|
+|[📜 Optimizers Implemented](#Optimizers-Implemented)||[🏁 Leaderboard](#Leaderboard)|
 
 
 
@@ -108,7 +108,7 @@ Train using the following command
 python trainval.py -e new_benchmark -v 1 -d ../results -sb ../results
 ```
 
-### Optimizers Implemented 
+## Optimizers Implemented 
 
 | Name | Conference/Journal | Implemented   | 
 | ---- |  ----- | ----- | 
@@ -129,7 +129,8 @@ python trainval.py -e new_benchmark -v 1 -d ../results -sb ../results
 
 
 
-## Leaderboard (Check out the optimizers in [Google Colab](https://colab.research.google.com/drive/1pC3M9qTNXuUfvlKRyJuUBcHa8ZRU8oir#scrollTo=BRGIn6grTkjq))
+## Leaderboard 
+Check out the optimizers in [Google Colab](https://colab.research.google.com/drive/1pC3M9qTNXuUfvlKRyJuUBcHa8ZRU8oir#scrollTo=BRGIn6grTkjq))
 The section is being continually updated with the latest optimizers on standard benchmarks.
 
 ### synthetic
