@@ -180,7 +180,7 @@ for mom in [.2, .4,.6,.8]:
 
 # old_list
 old_list = [{'name': "sps", 'c': .2,  'adapt_flag': 'mom1', 'momentum':0}]
-old_list += [{'name': "sps", 'c': 5,  'adapt_flag': 'mom1', 'momentum':0.9}]
+# old_list += [{'name': "sps", 'c': 5,  'adapt_flag': 'mom1', 'momentum':0.9}]
 old_list += [{'name': "sps", 'c': 1,  'adapt_flag': 'mom1', 'momentum':0.9}]
     # if beta != 0:
     #     beta_against_c2 += [{'name': "sps", 'c': c,  'adapt_flag': 'mom1', 'momentum':0}]
@@ -213,16 +213,12 @@ EXP_GROUPS['old_list'] = get_benchmark(benchmarks=deep_dataset, opt_list=old_lis
 EXP_GROUPS['same_momentum'] = get_benchmark(benchmarks=deep_dataset, opt_list=same_momentum)
 EXP_GROUPS['against_sgd_momentum'] = get_benchmark(benchmarks=deep_dataset, opt_list=against_sgd_momentum)
 
-sps_alg3 = []
-for z in [1e-5, 1e-4, 1e-3]:
-    sps_alg3 += [
-        {'name': "sps", 'c': 0.5,  'adapt_flag': 'smooth_iter_z',  'z':z},
-    # {'name': "sps", 'c': 0.5,  'adapt_flag': 'smooth_iter_z',  'z':z},
-                ]
-EXP_GROUPS['sps_alg3_syn'] = get_benchmark(benchmarks=syn_dataset, opt_list=sps_alg3)
-sps_alg3 = []
-for z in [1e-5, 1e-4, 1e-3]:
-    sps_alg3 += [
-        {'name': "sps", 'c': 0.2,  'adapt_flag': 'smooth_iter_z',  'z':z},
-                ]
-EXP_GROUPS['sps_alg3_deep'] = get_benchmark(benchmarks=deep_dataset, opt_list=sps_alg3)
+
+for alg in ['alg4', 'alg3']:
+    sps_alg = []
+    for z in [.5]:
+        sps_alg += [
+            {'name': "sps", 'c': 0.5,  'adapt_flag': alg,  'z':z},
+                    ]
+    EXP_GROUPS[f'{alg}_syn'] = get_benchmark(benchmarks=syn_dataset, opt_list=sps_alg)
+    EXP_GROUPS[f'{alg}_deep'] = get_benchmark(benchmarks=deep_dataset, opt_list=sps_alg)

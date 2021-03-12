@@ -124,13 +124,29 @@ class Sps(torch.optim.Optimizer):
             coeff = self.gamma**(1./self.n_batches_per_epoch)
             step_size =  min(coeff * self.state['step_size'], step_size.item())
 
-        elif self.adapt_flag in ['smooth_iter_z']:
-            z = self.exp_dict['opt']['z']
+        elif self.adapt_flag in ['alg4']:
+            z = 1.1
 
             curr_step_size = float(loss / (self.c * (grad_norm)**2))
             prev_step_size = self.state['step_size']
+
             step_size =  z*curr_step_size + (1-z) * prev_step_size
             assert step_size > 0
+
+        elif self.adapt_flag in ['alg3']:
+            z = self.gamma**(1./ self.n_batches_per_epoch) - 1
+            
+            curr_ratio = float(loss / (self.c * (grad_norm)**2))
+            if 'ratio_prev' not in self.state:
+                # at x0
+                step_size = 0
+                self.state['ratio_prev'] = 1
+            else:
+                # at xk where k > 0
+                step_size =  z*curr_ratio + (1-z) * self.state['ratio_prev']
+                self.state['ratio_prev'] = curr_ratio
+
+            assert step_size >= 0
                 
 
         elif self.adapt_flag in ['mom1']:
