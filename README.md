@@ -16,7 +16,7 @@ The goal of this repository is
 
 ## Quick Start 
 
-Run MNIST experiments with these steps.
+Run MNIST experiments with these three steps (or use this Google Colab).
 
 1. **Install requirements**
 
