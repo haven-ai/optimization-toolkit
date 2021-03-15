@@ -6,10 +6,12 @@ The goal of this repository is
 
 ## Quick links to sections in this page
 
-| | |
-|-|-|
-|[🔍 Quick Start](#Quick-Start) |[🔏 Adding new benchmarks](#Adding-a-new-benchmark)|
-|[📜 Optimizers Implemented](#Optimizers-Implemented)|[🏁 Leaderboard](#Leaderboard)|
+| |
+|-|
+|[🔍 Quick Start](#Quick-Start) |
+[🔏 Adding new benchmarks](#Adding-a-new-benchmark)|
+|[📜 Optimizers Implemented](#Optimizers-Implemented)|
+[🏁 Leaderboard](#Leaderboard)|
 
 
 
@@ -43,7 +45,7 @@ Argument Descriptions:
 
 Open `results.ipynb` and run the first cell to get the following visualization of results.
 
-
+![](results/dashboard.png)
 
 ## Adding an optimizer
 
