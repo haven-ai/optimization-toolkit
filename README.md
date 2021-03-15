@@ -58,6 +58,17 @@ For example,
 elif opt_name == "seg":
         opt = sls_eg.SlsEg(params, n_batches_per_epoch=n_batches_per_epoch)
 ```
+3. Add the `RMSProp` hyperparameter in the `EXP_GROUP`
+
+```
+EXP_GROUP["mnist"] += [{"name":"RMSProp"}]
+```
+
+4. Launch the experiment using this command
+
+```
+python trainval.py -e mnist -d results -sb results
+```
 
 ## Adding a dataset
 
@@ -86,7 +97,8 @@ Let's add the `DenseNet121` model.
 
 1. Define the matrics, loss functionn, and the accuracy function in the `src/models/classifiers.py`
 2. Define the base model in the `get_classifier(clf_name, train_set)` function in `src/models/base_classifiers.py`.
-
+3. 
+https://github.com/haven-ai/optimization-benchmark/blob/main/src/models/base_classifiers.py#L341
 
 Define the experiment configuration you would like to run. The dataset, models, optimizers, and hyperparameters can all be defined in the experiment configurations.
 ```python
