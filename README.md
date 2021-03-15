@@ -1,8 +1,8 @@
-# Awesome Optimization Benchmark
+# Awesome Optimization Benchmarks
 
-The goal of this repository is 
-  - to illustrate how different optimizers perform on different datasets using a standard benchmark; and 
-  - allow users to add their own datasets and optimizers to have a reliable comparison and inspire new state-of-the-art optimizers for different machine learning problem setups.
+This library illustrates different optimizers performance on different datasets. It also allows users to add their own datasets and optimizers and compare against existing methods.
+
+(Add GIF for different optimization results, train loss on left, dataset image on the right)
 
 ## Quick links to sections in this page
 
