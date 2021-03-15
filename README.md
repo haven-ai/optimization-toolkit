@@ -18,12 +18,12 @@ The goal of this repository is
 
 Run MNIST experiments with these three steps (or use this Google Colab).
 
-1. **Install requirements**
+### 1. Install requirements
 
 `pip install -r requirements.txt` 
 
 
-2. **Train and Validate**
+### 2. Train and Validate
 
 ```python
 python trainval.py -e mnist -d results -sb results -r 1 -v results.ipynb
@@ -39,7 +39,7 @@ Argument Descriptions:
 -v  [File name where a jupyter is saved for visualization]
 ```
 
-3. **Visualize the Results**
+### 3. Visualize the Results
 
 Open `results.ipynb` and run the first cell to get the following visualization of results.
 
