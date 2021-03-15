@@ -6,12 +6,11 @@ This library illustrates different optimizers performance on different datasets.
 
 
 
-| **Quick links to sections in this page**|
-|-|
-|[🔍 Quick Start](#Quick-Start) |
-[🔏 Adding new benchmarks](#Adding-a-new-benchmark)|
-|[📜 Optimizers Implemented](#Optimizers-Implemented)|
-[🏁 Leaderboard](#Leaderboard)|
+| **Quick links to sections in this page**|||
+|-|-|-|
+|[🔍 Quick Start](#Quick-Start) ||[📜 Optimizers Implemented](#Optimizers-Implemented)|[🏁 Leaderboard](#Leaderboard)|
+[🔏 Adding an optimizer](#Adding-a-new-benchmark)|[🔏 Adding a dataset](#Adding-a-new-benchmark)|[🔏 Adding a model](#Adding-a-new-benchmark)|
+
 
 
 
