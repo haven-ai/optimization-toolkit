@@ -4,9 +4,9 @@ This library illustrates different optimizers performance on different datasets.
 
 (Add GIF for different optimization results, train loss on left, dataset image on the right)
 
-## Quick links to sections in this page
 
-| |
+
+| **Quick links to sections in this page**|
 |-|
 |[🔍 Quick Start](#Quick-Start) |
 [🔏 Adding new benchmarks](#Adding-a-new-benchmark)|
