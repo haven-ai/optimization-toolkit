@@ -6,10 +6,28 @@ from sklearn import metrics
 from src import utils as ut
 from torch.utils.data import Dataset
 import tqdm
+from . import pascal, cityscapes
 
-
-def get_dataset(dataset_name, split, datadir, exp_dict):
+def get_dataset(dataset_name, split, datadir, exp_dict, **kwargs):
     train_flag = True if split == 'train' else False
+
+    if dataset_name == 'pascal':
+        dataset = pascal.Pascal(datadir, split=split, supervision='full', 
+                                exp_dict=exp_dict,
+                                sbd=exp_dict['dataset'].get('sbd', False))
+        dataset_size = kwargs.get('dataset_size', None)
+        if dataset_size is not None and dataset_size.get(split, 'all') != 'all':
+            dataset.dataset.images = dataset.dataset.images[:dataset_size[split]]
+        return dataset
+
+    if dataset_name == 'cityscapes':
+        dataset = cityscapes.CityScapes(split=split, exp_dict=exp_dict, datadir=datadir)
+        
+        dataset_size = kwargs.get('dataset_size', None)
+        if dataset_size is not None and dataset_size.get(split, 'all') != 'all':
+            dataset.dataset.images = dataset.dataset.images[:dataset_size[split]]
+        return dataset
+
     if dataset_name in ['B', 'C']:
         bias = 1; 
         scaling = 10; 
@@ -504,3 +522,22 @@ def rbf_kernel(A, B, sigma):
     distsq = np.square(metrics.pairwise.pairwise_distances(A, B, metric="euclidean"))
     K = np.exp(-1 * distsq/(2*sigma**2))
     return K
+
+
+def get_random(y_list, x_list):
+    with hu.random_seed(1):
+        yi = np.random.choice(y_list)
+        x_tmp = x_list[y_list == yi]
+        xi = np.random.choice(x_tmp)
+
+    return yi, xi
+
+def get_median(y_list, x_list):
+    tmp = y_list
+    mid = max(0, len(tmp)//2 - 1)
+    yi = tmp[mid]
+    tmp = x_list[y_list == yi]
+    mid = max(0, len(tmp)//2 - 1)
+    xi = tmp[mid]
+
+    return yi, xi
