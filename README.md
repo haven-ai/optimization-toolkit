@@ -1,64 +1,54 @@
-# Awesome Optimization Benchmark
+# Awesome Optimization Benchmarks
 
-The goal of this repository is 
-  - to illustrate how different optimizers perform on different datasets using a standard benchmark; and 
-  - allow users to add their own datasets and optimizers to have a reliable comparison and inspire new state-of-the-art optimizers for different machine learning problem setups.
+This library illustrates different optimizers performance on different datasets. It also allows users to add their own datasets and optimizers and compare against existing methods.
 
-## Quick links to sections in this page
+(Add GIF for different optimization results, train loss on left, dataset image on the right)
 
-| | |
-|-|-|
-|[🔍 Quick Start](#Quick-Start) |[🔏 Adding new benchmarks](#Adding-a-new-benchmark)|
-|[📜 Optimizers Implemented](#Optimizers-Implemented)|[🏁 Leaderboard](#Leaderboard)|
+
+
+| **Quick links to sections in this page**|||
+|-|-|-|
+|[🔍 Quick Start](#Quick-Start) |[📜 Optimizers Implemented](#Optimizers-Implemented)|[🏁 Leaderboard](#Leaderboard)|
+[🔏 Adding an optimizer](#Adding-a-new-benchmark)|[🔏 Adding a dataset](#Adding-a-new-benchmark)|[🔏 Adding a model](#Adding-a-new-benchmark)|
+
 
 
 
 
 ## Quick Start 
 
+Run MNIST experiments with these three steps (or use this Google Colab).
 
-**Install requirements**
+### 1. Install requirements
+
 `pip install -r requirements.txt` 
 
 
-**To run the experiments and get the validation results locally:**
+### 2. Train and Validate
 
 ```python
-python trainval.py -e <expconfig> -r "0" -d <datadir> -sb <savedir_base> -nw "0" -j "0"
-
-<expconfig>             Name definition of the experiment experiment configuration
-<datadir>               Path to the saved data directory
-<savedir_base>          Path to the saved results directory
+python trainval.py -e mnist -d results -sb results -r 1 -v results.ipynb
 ```
 
-
-
-
-**To run the experiments and get the validationn results in slurm:**
-```python
-python trainval.py -e <expconfig> -r "0" -d <datadir> -sb <savedir_base> -nw "0" -j "slurm"
-
-<expconfig>             Name definition of the experiment experiment configuration
-<datadir>               Path to the saved data directory
-<savedir_base>          Path to the saved results directory
+Argument Descriptions:
+```
+-e  [Experiment group to run like 'mnist, cifar10, cifar100'] 
+-sb [Directory where the experiments are saved]
+-d  [Directory where the datasets are saved]
+-r  [Flag for whether to reset the experiments]
+-j  [Scheduler for launching the experiments. Use None for running them on local machine]
+-v  [File name where a jupyter is saved for visualization]
 ```
 
+### 3. Visualize the Results
 
+Open `results.ipynb` and run the first cell to get the following visualization of results.
 
-**To view the results :**
+![](results/dashboard.png)
 
-Example
-```python
-python trainval.py -e <expconfig> -v 1 -d <datadir> -sb <savedir_base>
+## Adding an optimizer
 
-<expconfig>             Name definition of the experiment experiment configuration
-<datadir>               Path to the saved data directory
-<savedir_base>          Path to the saved results directory
-```
-
-## Adding a new benchmark
-
-**Add an optimizer**
+As an example, let's add `RMSProp` to the MNIST list of experiments.
 
 1. Define a new optimizer in `src/optimizers/<new_optimizer>.py`.
 2. Init the constructor for `opt_name = "<new_optimizer>"` in `src/optimizers/__init__.py`.
@@ -68,8 +58,21 @@ For example,
 elif opt_name == "seg":
         opt = sls_eg.SlsEg(params, n_batches_per_epoch=n_batches_per_epoch)
 ```
+3. Add the `RMSProp` hyperparameter in the `EXP_GROUP`
 
-**Add a dataset**
+```
+EXP_GROUP["mnist"] += [{"name":"RMSProp"}]
+```
+
+4. Launch the experiment using this command
+
+```
+python trainval.py -e mnist -d results -sb results
+```
+
+## Adding a dataset
+
+Let's add the `CIFAR10` dataset.
 
 Define a new dataset and its according transformations in `src/datasets/__init__.py` for `dataset_name = "<new_dataset>"`.
 
@@ -88,13 +91,14 @@ For example,
                                )
 ```
 
-**Add a model**
+## Adding a model
+
+Let's add the `DenseNet121` model.
 
 1. Define the matrics, loss functionn, and the accuracy function in the `src/models/classifiers.py`
 2. Define the base model in the `get_classifier(clf_name, train_set)` function in `src/models/base_classifiers.py`.
-
-
-**Run the new benchmark**
+3. 
+https://github.com/haven-ai/optimization-benchmark/blob/main/src/models/base_classifiers.py#L341
 
 Define the experiment configuration you would like to run. The dataset, models, optimizers, and hyperparameters can all be defined in the experiment configurations.
 ```python
