@@ -9,7 +9,7 @@ This library illustrates different optimizers performance on different datasets.
 | **Quick links to sections in this page**|||
 |-|-|-|
 |[🔍 Quick Start](#Quick-Start) |[📜 Optimizers Implemented](#Optimizers-Implemented)|[🏁 Leaderboard](#Leaderboard)|
-[🔏 Adding an optimizer](#Adding-a-new-benchmark)|[🔏 Adding a dataset](#Adding-a-new-benchmark)|[🔏 Adding a model](#Adding-a-new-benchmark)|
+[🔏 Adding an optimizer](#Adding-an-benchmark)|[🔏 Adding a dataset](#Adding-a-dataset)|[🔏 Adding a model](#Adding-a-new-model)|
 
 
 
@@ -72,7 +72,7 @@ python trainval.py -e mnist -d results -sb results
 
 ## Adding a dataset
 
-Let's add the `CIFAR10` dataset.
+As an example, let's add the `CIFAR10` dataset.
 
 Define a new dataset and its according transformations in `src/datasets/__init__.py` for `dataset_name = "<new_dataset>"`.
 
@@ -93,7 +93,7 @@ For example,
 
 ## Adding a model
 
-Let's add the `DenseNet121` model.
+As an example, let's add the `DenseNet121` model.
 
 1. Define the matrics, loss functionn, and the accuracy function in the `src/models/classifiers.py`
 2. Define the base model in the `get_classifier(clf_name, train_set)` function in `src/models/base_classifiers.py`.
