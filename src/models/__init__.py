@@ -9,8 +9,9 @@ import torchvision.models as models
 from . import classifier, semseg
 
 def get_model(train_loader, exp_dict, device):
-    if exp_dict['model_base'] in ['semseg']:
-        model =  semseg.SemSeg(exp_dict)
+    model_name = exp_dict['model_base']['name'] if type(exp_dict['model_base']) is dict else exp_dict['model_base']
+    if model_name in ['semseg']:
+        model =  semseg.SemSeg(exp_dict, device)
 
         # load pretrained
         if 'pretrained' in exp_dict:

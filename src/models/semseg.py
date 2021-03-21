@@ -20,23 +20,24 @@ except:
     print('kornia not installed')
     
 from scipy.ndimage.filters import gaussian_filter
-from ..optimizers import adasls, sls, sps
+from ..optimizers import sls, sps
 from . import metrics, losses, base_semsegs
 
 class SemSeg(torch.nn.Module):
-    def __init__(self, exp_dict):
+    def __init__(self, exp_dict, device):
         super().__init__()
         self.exp_dict = exp_dict
         self.train_hashes = set()
-        self.n_classes = self.exp_dict['model'].get('n_classes', 1)
+        self.n_classes = self.exp_dict['model_base'].get('n_classes', 1)
 
         self.epoch = 0
 
-        self.model_base = base_semsegs.get_network(self.exp_dict['model']['base'],
+        self.model_base = base_semsegs.get_network(self.exp_dict['model_base']['base'],
                                               n_classes=self.n_classes,
                                               exp_dict=self.exp_dict)
-        self.cuda()
-        opt_dict = self.exp_dict['optimizer']
+        self.device = device
+        self.to(device=self.device)
+        opt_dict = self.exp_dict['opt']
         name = opt_dict['name']
         if name == "adam":
             opt = torch.optim.Adam(
@@ -83,6 +84,7 @@ class SemSeg(torch.nn.Module):
         pbar = tqdm.tqdm(desc="Training", total=n_batches, leave=False)
         train_monitor = TrainMonitor()
     
+        train_loader.collate_fn = ut.collate_fn
         for batch in train_loader:
             score_dict = self.train_on_batch(batch)
             train_monitor.add(score_dict)
@@ -101,14 +103,14 @@ class SemSeg(torch.nn.Module):
 
         self.opt.zero_grad()
 
-        images = batch["images"].cuda()
+        images = batch["images"].to(device=self.device)
         
         # compute loss
-        loss_name = self.exp_dict['model']['loss']
+        loss_name = self.exp_dict['loss_func']
         if loss_name in 'cross_entropy':
             logits = self.model_base(images)
             # full supervision
-            loss_func = lambda:losses.compute_cross_entropy(images, logits, masks=batch["masks"].cuda(), roi_masks=roi_mask)
+            loss_func = lambda:losses.compute_cross_entropy(images, logits, masks=batch["masks"].to(device=self.device), roi_masks=roi_mask)
         
         elif loss_name in 'point_level':
             logits = self.model_base(images)
@@ -122,22 +124,23 @@ class SemSeg(torch.nn.Module):
         # create loss closure
         def closure():
             loss = loss_func()
-            if self.exp_dict['optimizer']['name'] not in ['adasls', 'sls']:
+            if self.exp_dict['opt']['name'] not in ['adasls', 'sls']:
                 loss.backward()
             return loss
 
         # update parameters
         self.opt.zero_grad()
-        loss = self.opt.step(closure=closure)
-
-            
+        if self.exp_dict['opt']['name'] in ['sps']:
+            loss = self.opt.step(closure=closure, batch=batch)
+        else:
+            loss = self.opt.step(closure=closure)
 
         return {'train_loss': float(loss)}
 
     @torch.no_grad()
     def predict_on_batch(self, batch):
         self.eval()
-        image = batch['images'].cuda()
+        image = batch['images'].to(device=self.device)
     
         if self.n_classes == 1:
             res = self.model_base.forward(image)
@@ -181,23 +184,43 @@ class SemSeg(torch.nn.Module):
         hu.save_image(savedir_image, np.hstack(img_list))
         # hu.save_image('.tmp/pred.png', np.hstack(img_list))
 
-    def val_on_loader(self, loader, savedir_images=None, n_images=0):
+    def val_on_dataset(self, dataset, metric, name):
         self.eval()
-        val_meter = metrics.SegMeter(split=loader.dataset.split)
-        i_count = 0
-        for i, batch in enumerate(tqdm.tqdm(loader)):
-            # make sure it wasn't trained on
-            for m in batch['meta']:
-                assert(m['hash'] not in self.train_hashes)
 
-            val_meter.val_on_batch(self, batch)
-            if i_count < n_images:
-                self.vis_on_batch(batch, savedir_image=os.path.join(savedir_images, 
-                    '%d.png' % batch['meta'][0]['index']))
-                i_count += 1
+        savedir_images=self.exp_dict.get('savedir_images', None)
+        n_images=self.exp_dict.get('n_images', 0)
 
+        loader = torch.utils.data.DataLoader(dataset, batch_size=1, collate_fn=ut.collate_fn)
         
-        return val_meter.get_avg_score()
+        if name == 'score':
+            val_meter = metrics.SegMeter(split=loader.dataset.split)
+            i_count = 0
+            for i, batch in enumerate(tqdm.tqdm(loader)):
+                # make sure it wasn't trained on
+                for m in batch['meta']:
+                    assert(m['hash'] not in self.train_hashes)
+
+                val_meter.val_on_batch(self, batch)
+                if i_count < n_images:
+                    self.vis_on_batch(batch, savedir_image=os.path.join(savedir_images, 
+                        '%d.png' % batch['meta'][0]['index']))
+                    i_count += 1
+
+            return val_meter.get_avg_score()
+
+        elif name == 'loss':       
+            score_sum = 0.
+            pbar = tqdm.tqdm(loader)
+            # todo: implement get_metric_function 
+            for batch in pbar:
+                images = batch["images"].to(device=self.device)
+                logits = self.model_base(images)
+                score_sum += losses.compute_cross_entropy(images, logits, masks=batch["masks"].to(device=self.device)).item() * images.shape[0]    
+                score = float(score_sum / len(loader.dataset))
+                
+                pbar.set_description(f'Validating {metric}: {score:.3f}')
+
+            return {f'{dataset.split}_{name}': score}
         
     @torch.no_grad()
     def compute_uncertainty(self, images, replicate=False, scale_factor=None, n_mcmc=20, method='entropy'):
@@ -205,7 +228,7 @@ class SemSeg(torch.nn.Module):
         set_dropout_train(self)
 
         # put images to cuda
-        images = images.cuda()
+        images = images.to(device=self.device)
         _, _, H, W= images.shape
 
         if scale_factor is not None:
@@ -242,11 +265,11 @@ class SemSeg(torch.nn.Module):
 
 
         if method == 'entropy':
-            score_map = - xlogy(probs).mean(dim=0).sum(dim=1)
+            score_map = - xlogy(probs, device=self.device).mean(dim=0).sum(dim=1)
 
         if method == 'bald':
-            left = - xlogy(probs.mean(dim=0)).sum(dim=1)
-            right = - xlogy(probs).sum(dim=2).mean(0)
+            left = - xlogy(probs.mean(dim=0), device=self.device).sum(dim=1)
+            right = - xlogy(probs, device=self.device).sum(dim=2).mean(0)
             bald = left - right
             score_map = bald
 
@@ -276,9 +299,9 @@ def set_dropout_train(model):
         if isinstance(module, torch.nn.Dropout) or isinstance(module, torch.nn.Dropout2d):
             module.train()
 
-def xlogy(x, y=None):
+def xlogy(x, y=None, device='cpu'):
     z = torch.zeros(())
     if y is None:
         y = x
     assert y.min() >= 0
-    return x * torch.where(x == 0., z.cuda(), torch.log(y))
+    return x * torch.where(x == 0., z.to(device), torch.log(y))

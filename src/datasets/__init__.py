@@ -8,14 +8,15 @@ from torch.utils.data import Dataset
 import tqdm
 from . import pascal, cityscapes
 
-def get_dataset(dataset_name, split, datadir, exp_dict, **kwargs):
+def get_dataset(dataset_name, split, datadir, exp_dict):
     train_flag = True if split == 'train' else False
 
     if dataset_name == 'pascal':
+        sbd = exp_dict['dataset'].get('sbd', False) if type(exp_dict['dataset']) is dict else False
         dataset = pascal.Pascal(datadir, split=split, supervision='full', 
                                 exp_dict=exp_dict,
-                                sbd=exp_dict['dataset'].get('sbd', False))
-        dataset_size = kwargs.get('dataset_size', None)
+                                sbd=sbd)
+        dataset_size = exp_dict.get('dataset_size', None)
         if dataset_size is not None and dataset_size.get(split, 'all') != 'all':
             dataset.dataset.images = dataset.dataset.images[:dataset_size[split]]
         return dataset
@@ -23,7 +24,7 @@ def get_dataset(dataset_name, split, datadir, exp_dict, **kwargs):
     if dataset_name == 'cityscapes':
         dataset = cityscapes.CityScapes(split=split, exp_dict=exp_dict, datadir=datadir)
         
-        dataset_size = kwargs.get('dataset_size', None)
+        dataset_size = exp_dict.get('dataset_size', None)
         if dataset_size is not None and dataset_size.get(split, 'all') != 'all':
             dataset.dataset.images = dataset.dataset.images[:dataset_size[split]]
         return dataset
