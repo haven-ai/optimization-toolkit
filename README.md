@@ -72,7 +72,7 @@ python trainval.py -e mnist -d results -sb results
 
 ## Adding a dataset
 
-As an example, let's add the `CIFAR10` dataset.
+As an example, let's add the `mnist` dataset.
 
 Define a new dataset and its according transformations in `src/datasets/__init__.py` for `dataset_name = "<new_dataset>"`.
 
@@ -97,10 +97,9 @@ As an example, let's add the `DenseNet121` model.
 
 1. Define the matrics, loss functionn, and the accuracy function in the `src/models/classifiers.py`
 2. Define the base model in the `get_classifier(clf_name, train_set)` function in `src/models/base_classifiers.py`.
-3. 
+3. Define the experiment configuration you would like to run. The dataset, models, optimizers, and hyperparameters can all be defined in the experiment configurations.
 https://github.com/haven-ai/optimization-benchmark/blob/main/src/models/base_classifiers.py#L341
 
-Define the experiment configuration you would like to run. The dataset, models, optimizers, and hyperparameters can all be defined in the experiment configurations.
 ```python
 EXP_GROUPS['new_benchmark'] = {"dataset": [<dataset_name>],
                      "model_base": [<network_name>],
