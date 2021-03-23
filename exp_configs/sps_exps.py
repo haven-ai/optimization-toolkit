@@ -175,7 +175,9 @@ beta_against_c2 += [{'name': "sps", 'c': .2,  'adapt_flag': 'mom1', 'momentum':0
 
 # C=.2
 fixed_c = [{'name': "sps", 'c': .2,  'adapt_flag': 'mom1', 'momentum':0}]
-for mom in [.2, .4,.6,.8]:
+neg_mom = [-.4, -.2]
+pos_mom = [.2, .4,.6,.8]
+for mom in neg_mom + pos_mom:
     fixed_c += [{'name': "sps", 'c': .2,  'adapt_flag': 'mom1', 'momentum':mom}]
 
 # old_list
@@ -207,7 +209,7 @@ opt_list = old_list
 # EXP_GROUPS['sps_cifar10'] = hu.cartesian_exp_group(get_benchmark(benchmark='cifar10', opt_list=opt_list))
 # EXP_GROUPS['sps_cifar100'] = hu.cartesian_exp_group(get_benchmark(benchmark='cifar100', opt_list=opt_list))
 
-EXP_GROUPS['fixed_c'] = get_benchmark(benchmarks=deep_dataset, opt_list=fixed_c)
+EXP_GROUPS['fixed_c'] = get_benchmark(benchmarks=deep_dataset+syn_dataset, opt_list=fixed_c)
 EXP_GROUPS['beta_against_c2'] = get_benchmark(benchmarks=deep_dataset, opt_list=beta_against_c2)
 EXP_GROUPS['old_list'] = get_benchmark(benchmarks=deep_dataset, opt_list=old_list)
 EXP_GROUPS['same_momentum'] = get_benchmark(benchmarks=deep_dataset, opt_list=same_momentum)
