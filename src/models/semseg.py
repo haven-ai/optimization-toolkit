@@ -20,11 +20,13 @@ except:
     print('kornia not installed')
     
 from scipy.ndimage.filters import gaussian_filter
-from ..optimizers import sls, sps
+from .. import optimizers
+# from ..optimizers import sls, sps
 from . import metrics, losses, base_semsegs
 
+
 class SemSeg(torch.nn.Module):
-    def __init__(self, exp_dict, device):
+    def __init__(self, train_loader, exp_dict, device):
         super().__init__()
         self.exp_dict = exp_dict
         self.train_hashes = set()
@@ -39,26 +41,30 @@ class SemSeg(torch.nn.Module):
         self.to(device=self.device)
         opt_dict = self.exp_dict['opt']
         name = opt_dict['name']
-        if name == "adam":
-            opt = torch.optim.Adam(
-                    self.model_base.parameters(), lr=opt_dict["lr"], betas=(0.99, 0.999))
+        self.opt = optimizers.get_optimizer(opt=exp_dict["opt"],
+                                       params=self.parameters(),
+                                       train_loader=train_loader,                                
+                                       exp_dict=exp_dict)
+        # if name == "adam":
+        #     opt = torch.optim.Adam(
+        #             self.model_base.parameters(), lr=opt_dict["lr"], betas=(0.99, 0.999))
 
-        elif name == "sgd":
-            opt = torch.optim.SGD(
-                self.model_base.parameters(), lr=opt_dict["lr"], momentum=opt_dict['momentum'], weight_decay=opt_dict['weight_decay'])
+        # elif name == "sgd":
+        #     opt = torch.optim.SGD(
+        #         self.model_base.parameters(), lr=opt_dict["lr"], momentum=opt_dict['momentum'], weight_decay=opt_dict['weight_decay'])
 
-        elif name == "sps":
-            opt = sps.Sps(
-                self.model_base.parameters(), c=opt_dict['c'])
-        elif name == "adasls":
-            opt = adasls.AdaSLS(
-                self.model_base.parameters(), c=opt_dict['c'], momentum=opt_dict.get('momentum', 0.))
+        # elif name == "sps":
+        #     opt = sps.Sps(
+        #         self.model_base.parameters(), c=opt_dict['c'])
+        # elif name == "adasls":
+        #     opt = adasls.AdaSLS(
+        #         self.model_base.parameters(), c=opt_dict['c'], momentum=opt_dict.get('momentum', 0.))
 
-        elif name == "sls":
-            opt = sls.Sls(
-                self.model_base.parameters(), c=.5)
+        # elif name == "sls":
+        #     opt = sls.Sls(
+        #         self.model_base.parameters(), c=.5)
                                
-        self.opt = opt
+        # self.opt = opt
 
 
     def get_state_dict(self):
@@ -124,14 +130,16 @@ class SemSeg(torch.nn.Module):
         # create loss closure
         def closure():
             loss = loss_func()
-            if self.exp_dict['opt']['name'] not in ['adasls', 'sls']:
-                loss.backward()
+            # no backward in adasls, sls
+            # if self.exp_dict['opt']['name'] not in ['adasls', 'sls']:
+            #     loss.backward()
             return loss
+
 
         # update parameters
         self.opt.zero_grad()
         if self.exp_dict['opt']['name'] in ['sps']:
-            loss = self.opt.step(closure=closure, batch=batch)
+            loss = self.opt.step(closure=closure)
         else:
             loss = self.opt.step(closure=closure)
 
