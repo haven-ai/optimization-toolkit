@@ -39,10 +39,10 @@ class SemSeg(torch.nn.Module):
                                               exp_dict=self.exp_dict)
         self.device = device
         self.to(device=self.device)
-        self.opt = optimizers.get_optimizer(opt=exp_dict["opt"],
-                                       params=self.parameters(),
-                                       train_loader=train_loader,                                
-                                       exp_dict=exp_dict)
+           
+                                
+    def set_opt(self, opt):
+        self.opt = opt
 
 
     def get_state_dict(self):

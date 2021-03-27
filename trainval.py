@@ -74,6 +74,13 @@ def trainval(exp_dict, savedir, args):
     model_path = os.path.join(savedir, "model.pth")
     score_list_path = os.path.join(savedir, "score_list.pkl")
 
+    # Set Optimizer
+    opt = optimizers.get_optimizer(opt=exp_dict["opt"],
+                                       params=model.parameters(),
+                                       train_loader=train_loader,                                
+                                       exp_dict=exp_dict)
+    model.set_opt(opt)
+
     if os.path.exists(score_list_path):
         # resume experiment
         score_list = ut.load_pkl(score_list_path)
