@@ -43,26 +43,6 @@ class SemSeg(torch.nn.Module):
                                        params=self.parameters(),
                                        train_loader=train_loader,                                
                                        exp_dict=exp_dict)
-        # if name == "adam":
-        #     opt = torch.optim.Adam(
-        #             self.model_base.parameters(), lr=opt_dict["lr"], betas=(0.99, 0.999))
-
-        # elif name == "sgd":
-        #     opt = torch.optim.SGD(
-        #         self.model_base.parameters(), lr=opt_dict["lr"], momentum=opt_dict['momentum'], weight_decay=opt_dict['weight_decay'])
-
-        # elif name == "sps":
-        #     opt = sps.Sps(
-        #         self.model_base.parameters(), c=opt_dict['c'])
-        # elif name == "adasls":
-        #     opt = adasls.AdaSLS(
-        #         self.model_base.parameters(), c=opt_dict['c'], momentum=opt_dict.get('momentum', 0.))
-
-        # elif name == "sls":
-        #     opt = sls.Sls(
-        #         self.model_base.parameters(), c=.5)
-                               
-        # self.opt = opt
 
 
     def get_state_dict(self):
@@ -211,11 +191,27 @@ class SemSeg(torch.nn.Module):
         elif name == 'loss':       
             score_sum = 0.
             pbar = tqdm.tqdm(loader)
-            # todo: implement get_metric_function 
+            loss_name = self.exp_dict['loss_func']
+        
+
             for batch in pbar:
                 images = batch["images"].to(device=self.device)
                 logits = self.model_base(images)
-                score_sum += losses.compute_cross_entropy(images, logits, masks=batch["masks"].to(device=self.device)).item() * images.shape[0]    
+                
+                # compute loss
+                if loss_name in 'cross_entropy':
+                    # full supervision
+                    loss = losses.compute_cross_entropy(images, logits, masks=batch["masks"].to(device=self.device))
+                
+                elif loss_name in 'point_level':
+                    # point supervision
+                    loss = losses.compute_point_level(images, logits, point_list=batch['point_list'])
+                
+                elif loss_name in 'point_level':
+                    # implementation needed
+                    loss = losses.compute_const_point_loss(images, logits, point_list=batch['point_list'])
+                
+                score_sum += loss    
                 score = float(score_sum / len(loader.dataset))
                 
                 pbar.set_description(f'Validating {metric}: {score:.3f}')
@@ -275,7 +271,6 @@ class SemSeg(torch.nn.Module):
 
 
         return score_map 
-
 
 
 class TrainMonitor:
