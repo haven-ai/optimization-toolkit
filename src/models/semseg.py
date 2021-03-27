@@ -39,8 +39,6 @@ class SemSeg(torch.nn.Module):
                                               exp_dict=self.exp_dict)
         self.device = device
         self.to(device=self.device)
-        opt_dict = self.exp_dict['opt']
-        name = opt_dict['name']
         self.opt = optimizers.get_optimizer(opt=exp_dict["opt"],
                                        params=self.parameters(),
                                        train_loader=train_loader,                                
@@ -127,21 +125,15 @@ class SemSeg(torch.nn.Module):
             # implementation needed
             loss_func = lambda:losses.compute_const_point_loss(images, logits, point_list=batch['point_list'])
 
-        # create loss closure
-        def closure():
-            loss = loss_func()
-            # no backward in adasls, sls
-            # if self.exp_dict['opt']['name'] not in ['adasls', 'sls']:
-            #     loss.backward()
-            return loss
-
-
+        closure = loss_func
         # update parameters
-        self.opt.zero_grad()
-        if self.exp_dict['opt']['name'] in ['sps']:
+        name = self.exp_dict['opt']['name']
+        if (name in ['sps', "sgd_armijo", "ssn", 'adaptive_first', 'l4', 'ali_g', 'sgd_goldstein', 'sgd_nesterov', 'sgd_polyak', 'seg']):
             loss = self.opt.step(closure=closure)
-        else:
-            loss = self.opt.step(closure=closure)
+        elif (name in ['sgd', "adam", "adagrad", 'radam', 'plain_radam', 'adabound', 'sgd_m', 'amsbound', 'rmsprop', 'lookahead']):
+            loss = closure()
+            loss.backward()
+            self.opt.step()
 
         return {'train_loss': float(loss)}
 
