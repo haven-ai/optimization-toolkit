@@ -160,6 +160,7 @@ The section is being continually updated with the latest optimizers on standard 
 ### CIFAR100 - ResNet34
 ![alt text](results/cifar100.png)
 
-
+### Pascal - fcn8_vgg16
+![alt text](results/pascal.png)
 
 
