@@ -52,7 +52,7 @@ class SemSeg(torch.nn.Module):
 
         return state_dict
 
-    def load_state_dict(self, state_dict):
+    def set_state_dict(self, state_dict):
         self.model_base.load_state_dict(state_dict["model"])
         if 'opt' not in state_dict:
             return
