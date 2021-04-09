@@ -2,7 +2,6 @@
 
 This library illustrates different optimizers performance on different datasets. It also allows users to add their own datasets and optimizers and compare against existing methods.
 
-(Add GIF for different optimization results, train loss on left, dataset image on the right)
 
 
 
