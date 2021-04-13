@@ -1,7 +1,8 @@
-# Awesome Optimization Toolkit
+# Awesome Optimization Toolkit 
 
 This library illustrates different optimizers performance on different datasets. It also allows users to add their own datasets and optimizers and compare against existing methods.
 
+### [Try in a colab →](https://colab.research.google.com/drive/11rFC_5nnOTb3UBztg0S5F11QyRrq483d?usp=sharing#scrollTo=HcCYt8OocGG-&uniqifier=1)
 
 
 
