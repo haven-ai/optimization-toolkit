@@ -42,7 +42,7 @@ Argument Descriptions:
 
 Open `results.ipynb` and run the first cell to get the following visualization of results.
 
-![](results/dashboard.png)
+![](results/dash.png)
 
 ## Adding an optimizer
 
