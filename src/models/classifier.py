@@ -17,8 +17,8 @@ class Classifier(torch.nn.Module):
         super().__init__()
         self.exp_dict = exp_dict
         self.device = device
-        
-        self.model_base = base_classifiers.get_classifier(exp_dict['model_base'], train_set=train_loader.dataset)
+        model_base = exp_dict.get('model_base', exp_dict['model'])
+        self.model_base = base_classifiers.get_classifier(model_base, train_set=train_loader.dataset)
 
         # Load Optimizer
         self.to(device=self.device)
