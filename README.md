@@ -15,7 +15,7 @@ This library illustrates different optimizers performance on different datasets.
 
 ## Quick Start 
 
-Run MNIST experiments with these three steps (or use this Google Colab).
+Run MNIST experiments with these three steps.
 
 ### 1. Install requirements
 

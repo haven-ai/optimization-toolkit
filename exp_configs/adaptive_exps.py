@@ -15,7 +15,7 @@ def get_benchmark(benchmark, opt_list):
                 'margin':
                 [
                     0.05,
-            0.1,
+                    0.1,
                     0.5,
                     0.01,
         ],
