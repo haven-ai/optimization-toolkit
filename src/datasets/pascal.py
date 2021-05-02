@@ -22,7 +22,6 @@ from torchvision.transforms import transforms
 import pylab as plt
 from skimage.color import label2rgb
 from skimage.segmentation import slic
-from haven import haven_utils as hu
 from haven import haven_img as hi
 from src import utils as ut
 # from repos.aranxta_code.extract_cost import CsObject
@@ -53,8 +52,8 @@ class Pascal:
                                                             image_set='val',
                                                             download=False)
             
-        self.point_dict = hu.load_json(os.path.join(datadir, 'VOCdevkit',                 
-                                    'pascal2012_trainval_main.json'))
+        # self.point_dict = hu.load_json(os.path.join(datadir, 'VOCdevkit',                 
+        #                             'pascal2012_trainval_main.json'))
         self.dataset = dataset
         self.transforms = None
                                                                          
@@ -68,14 +67,14 @@ class Pascal:
 
         img_pil = Image.open(img_path).convert("RGB")
         W, H = img_pil.size
-        points_list = self.point_dict[name]
+        # points_list = self.point_dict[name]
         points_mask = np.zeros((H, W))
 
-        if self.supervision != 'full':
-            for p in points_list:
-                if p['y'] >= H or p['x'] >= W:
-                    continue
-                points_mask[int(p['y']), int(p['x'])] = p['cls']
+        # if self.supervision != 'full':
+        #     for p in points_list:
+        #         if p['y'] >= H or p['x'] >= W:
+        #             continue
+        #         points_mask[int(p['y']), int(p['x'])] = p['cls']
         
 
         if self.supervision == 'full':
@@ -184,11 +183,11 @@ class Pascal:
         y_list, x_list = np.where(masks==0)
         if self.supervision != 'full' and len(y_list) > 0:
             yi, xi = datasets.get_random(y_list, x_list)
-            points_list += [{'cls':0, 'x':xi, 'y':yi}]
+            # points_list += [{'cls':0, 'x':xi, 'y':yi}]
         batch = {"images": images,
         "img_pil": img_pil,
                 'points':torch.as_tensor(points_mask),
-                'point_list':points_list,
+                # 'point_list':points_list,
                 # 'inst':inst,
                 #  'flipped':flipped,
                  "masks": masks,

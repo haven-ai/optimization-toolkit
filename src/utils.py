@@ -122,7 +122,24 @@ def update_trainloader_and_opt(train_set, opt, batch_size, n_train, batch_grow_f
 
     return train_loader, opt
     
+def collate_fn(batch):
+    batch_dict = {}
+    for k in batch[0]:
+        batch_dict[k] = []
+        for i in range(len(batch)):
+            
+            batch_dict[k] += [batch[i][k]]
+    # tuple(zip(*batch))
+    batch_dict['images'] = torch.stack(batch_dict['images'])
+    if 'masks' in batch_dict:
+        batch_dict['masks'] = torch.stack(batch_dict['masks'])
+    if 'points' in batch_dict:
+        batch_dict['points'] = torch.stack(batch_dict['points'])
+    if 'edges' in batch_dict:
+        batch_dict['edges'] = torch.stack(batch_dict['edges'])
 
+    return batch_dict 
+    
 
 
 

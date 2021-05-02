@@ -74,6 +74,13 @@ def trainval(exp_dict, savedir, args):
     model_path = os.path.join(savedir, "model.pth")
     score_list_path = os.path.join(savedir, "score_list.pkl")
 
+    # Set Optimizer
+    opt = optimizers.get_optimizer(opt=exp_dict["opt"],
+                                       params=model.parameters(),
+                                       train_loader=train_loader,                                
+                                       exp_dict=exp_dict)
+    model.set_opt(opt)
+
     if os.path.exists(score_list_path):
         # resume experiment
         score_list = ut.load_pkl(score_list_path)
@@ -93,15 +100,17 @@ def trainval(exp_dict, savedir, args):
         torch.manual_seed(seed)
         torch.cuda.manual_seed_all(seed)
 
+        # Validate one epoch
+        train_loss_dict = model.val_on_dataset(train_set, metric=exp_dict["loss_func"], name='loss')
+        val_acc_dict = model.val_on_dataset(val_set, metric=exp_dict.get("score_func", exp_dict.get('acc_func')), name='score')
+
+
         # Train one epoch
         s_time = time.time()
         model.train_on_loader(train_loader)
         e_time = time.time()
 
-        # Validate one epoch
-        train_loss_dict = model.val_on_dataset(train_set, metric=exp_dict["loss_func"], name='loss')
-        val_acc_dict = model.val_on_dataset(val_set, metric=exp_dict["score_func"], name='score')
-
+        
         # Record metrics
         score_dict = {"epoch": epoch}
         score_dict.update(train_loss_dict)
@@ -139,18 +148,12 @@ if __name__ == "__main__":
                         help='Reset or resume the experiment.')
     parser.add_argument("-c", "--cuda", default=1, type=int)
     parser.add_argument("-j", "--job_scheduler", default=None, type=str)
+    parser.add_argument("-p", "--python_binary_path", default='python')
     args, others = parser.parse_known_args()
 
-
-    try:
-        hw.run_wizard(func=trainval, 
-                    exp_groups=exp_configs.EXP_GROUPS, 
-                    job_config=job_configs.JOB_CONFIG, 
-                    job_scheduler=args.job_scheduler,
-                    python_binary_path='/mnt/home/miniconda3/bin/python',
-                    use_threads=True, args=args)
-    except:
-        hw.run_wizard(func=trainval, 
-                    exp_groups=exp_configs.EXP_GROUPS, 
-                    job_config=job_configs.JOB_CONFIG, 
-                    use_threads=True, args=args)
+    hw.run_wizard(func=trainval, 
+                  exp_groups=exp_configs.EXP_GROUPS, 
+                  job_config=job_configs.JOB_CONFIG, 
+                  job_scheduler=args.job_scheduler,
+                  python_binary_path=args.python_binary_path,
+                  use_threads=True, args=args)

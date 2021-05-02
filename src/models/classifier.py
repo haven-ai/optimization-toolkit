@@ -17,15 +17,15 @@ class Classifier(torch.nn.Module):
         super().__init__()
         self.exp_dict = exp_dict
         self.device = device
-        
-        self.model_base = base_classifiers.get_classifier(exp_dict['model_base'], train_set=train_loader.dataset)
+        model_base = exp_dict.get('model_base', exp_dict.get('model'))
+        self.model_base = base_classifiers.get_classifier(model_base, train_set=train_loader.dataset)
 
         # Load Optimizer
         self.to(device=self.device)
-        self.opt = optimizers.get_optimizer(opt=exp_dict["opt"],
-                                       params=self.parameters(),
-                                       train_loader=train_loader,                                
-                                       exp_dict=exp_dict)
+
+
+    def set_opt(self, opt):
+        self.opt = opt
         
     def train_on_loader(self, train_loader):
         self.train()
@@ -80,13 +80,15 @@ class Classifier(torch.nn.Module):
                                                                     backpack=(use_backpack and not for_backtracking))
             loss = self.opt.step(closure)
                     
-        elif (name in ["sgd_armijo", "ssn", 'adaptive_first', 'l4', 'ali_g', 'sgd_goldstein', 'sgd_nesterov', 'sgd_polyak', 'seg']):
+        elif (name in ["sgd_armijo", "ssn", 'adaptive_first', 'l4', 'ali_g', 
+                       'sgd_goldstein', 'sgd_nesterov', 'sgd_polyak', 'seg', 'sps',
+                       'sps_lookahead']):
             closure = lambda : loss_function(self.model_base, images, labels, backwards=False, backpack=use_backpack)
             loss = self.opt.step(closure)
                     
-        elif (name in ['sps']):
-            closure = lambda : loss_function(self.model_base, images, labels, backwards=False, backpack=use_backpack)
-            loss = self.opt.step(closure, batch)
+        # elif (name in ['sps']):
+        #     closure = lambda : loss_function(self.model_base, images, labels, backwards=False, backpack=use_backpack)
+        #     loss = self.opt.step(closure)
 
         elif (name in ['sgd', "adam", "adagrad", 'radam', 'plain_radam', 'adabound', 'sgd_m', 'amsbound', 'rmsprop', 'lookahead']):
             loss = loss_function(self.model_base, images, labels, backpack=use_backpack)

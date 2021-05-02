@@ -9,7 +9,7 @@ JOB_CONFIG =  {'account_id':os.environ['EAI_ACCOUNT_ID'] ,
             'restartable':True,
             'resources': {
                 'cpu': 4,
-                'mem': 8,
+                'mem': 80,
                 'gpu': 1,
                 'gpu_model':'!A100'
             },

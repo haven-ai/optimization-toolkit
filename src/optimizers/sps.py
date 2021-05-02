@@ -52,17 +52,11 @@ class Sps(torch.optim.Optimizer):
         self.loss_max = 0.
         self.fstar_flag = fstar_flag
 
-    def step(self, closure, batch, clip_grad=False):
-        indices = batch['meta']['indices']
+    def step(self, closure, clip_grad=False):
         # deterministic closure
         seed = time.time()
 
         batch_step_size = self.state['step_size']
-
-        if self.fstar_flag:
-            fstar = float(batch['meta']['fstar'].mean())
-        else:
-            fstar = 0.
 
         # get loss and compute gradients
         loss = closure()
@@ -87,39 +81,7 @@ class Sps(torch.optim.Optimizer):
         grad_norm = ut.compute_grad_norm(grad_current)
         loss_curr = loss.item()
 
-        if self.adapt_flag in ['auto']:
-            fstar = batch['meta']['f_star'].mean() 
-            L = batch['meta']['L'].mean() 
-            mu = batch['meta']['mu'].mean()
-            c = 0.5
-            step_size = (loss - fstar) / (c * (grad_norm)**2 + self.eps)
-            lb = 1. / (2.*c*L) 
-            ub = 1. / (2.*c*mu)
-            # assert( lb < step_size)
-            # assert( step_size < ub)
-            if loss < fstar:
-                step_size = 0.
-                loss_curr = 0.
-            else:
-                step_size = step_size.item()
-                loss_curr = loss.item()
-
-        if self.adapt_flag in ['constant']:
-            if 'f_star' in batch['meta']:
-                fstar = batch['meta']['f_star'].mean()
-            step_size = (loss - fstar) / (self.c * (grad_norm)**2 + self.eps)
-            if loss < fstar:
-                step_size = 0.
-                loss_curr = 0.
-            else:
-                if self.eta_max is None:
-                    step_size = step_size.item()
-                else:
-                    step_size =  min(self.eta_max, step_size.item())
-                    
-                loss_curr = loss.item()
-
-        elif self.adapt_flag in ['smooth_iter']:
+        if self.adapt_flag in ['smooth_iter']:
             step_size = loss / (self.c * (grad_norm)**2)
             coeff = self.gamma**(1./self.n_batches_per_epoch)
             step_size =  min(coeff * self.state['step_size'], step_size.item())

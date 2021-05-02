@@ -4,7 +4,7 @@ from . import others
 from . import adaptive_first, adaptive_second
 import torch
 from src.optimizers import sls, sps, ssn, sls_acc, sls_eg
-
+from . import lookahead
 
 def get_optimizer(opt, params, train_loader, exp_dict):
     """
@@ -152,7 +152,20 @@ def get_optimizer(opt, params, train_loader, exp_dict):
                         exp_dict=exp_dict,
                         # init_step_size=init_step_size
                         )
-
+    elif opt_name == 'sps_lookahead':
+        
+        base_opt = sps.Sps(params, c=opt_dict["c"], 
+                        n_batches_per_epoch=n_batches_per_epoch, 
+                        adapt_flag=opt_dict.get('adapt_flag', 'basic'),
+                        fstar_flag=opt_dict.get('fstar_flag'),
+                        eta_max=opt_dict.get('eta_max'),
+                        eps=opt_dict.get('eps', 0),
+                        gamma=opt_dict.get('gamma', 2),
+                        momentum=opt_dict.get('momentum', 0),
+                        exp_dict=exp_dict,
+                        # init_step_size=init_step_size
+                        )
+        opt = lookahead.Lookahead(base_opt, k=5, alpha=opt_dict["alpha"])
 
     elif opt_name == 'lookahead':
         base_opt = torch.optim.Adam(params, lr=1e-3, betas=(0.9, 0.999)) # Any optimizer

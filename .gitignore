@@ -30,7 +30,8 @@ MANIFEST
 
 # Jupyter Notebook
 .ipynb_checkpoints
-
+*.ipynb
+*.pdf
 # IPython
 profile_default/
 ipython_config.py
